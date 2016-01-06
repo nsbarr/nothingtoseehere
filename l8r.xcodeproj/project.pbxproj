@@ -13,6 +13,12 @@
 		01439E551C03BE58000CE85F /* l8r.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01439E531C03BE58000CE85F /* l8r.xcdatamodeld */; };
 		01439E571C03BE58000CE85F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01439E561C03BE58000CE85F /* Assets.xcassets */; };
 		01439E5A1C03BE58000CE85F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01439E581C03BE58000CE85F /* LaunchScreen.storyboard */; };
+		F1DD248F1C3D9E2900FD10DA /* l8r.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01439E531C03BE58000CE85F /* l8r.xcdatamodeld */; };
+		F1DD24901C3D9E2900FD10DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01439E4E1C03BE58000CE85F /* ViewController.swift */; };
+		F1DD24911C3D9E2900FD10DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01439E4C1C03BE58000CE85F /* AppDelegate.swift */; };
+		F1DD24941C3D9E2900FD10DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01439E581C03BE58000CE85F /* LaunchScreen.storyboard */; };
+		F1DD24951C3D9E2900FD10DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01439E561C03BE58000CE85F /* Assets.xcassets */; };
+		F1DD24961C3D9E2900FD10DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01439E501C03BE58000CE85F /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,10 +30,18 @@
 		01439E561C03BE58000CE85F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01439E591C03BE58000CE85F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01439E5B1C03BE58000CE85F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1DD249A1C3D9E2900FD10DA /* l8r-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "l8r-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		01439E461C03BE58000CE85F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1DD24921C3D9E2900FD10DA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -49,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				01439E491C03BE58000CE85F /* l8r.app */,
+				F1DD249A1C3D9E2900FD10DA /* l8r-dev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -87,6 +102,23 @@
 			productReference = 01439E491C03BE58000CE85F /* l8r.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F1DD248D1C3D9E2900FD10DA /* l8r-dev */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1DD24971C3D9E2900FD10DA /* Build configuration list for PBXNativeTarget "l8r-dev" */;
+			buildPhases = (
+				F1DD248E1C3D9E2900FD10DA /* Sources */,
+				F1DD24921C3D9E2900FD10DA /* Frameworks */,
+				F1DD24931C3D9E2900FD10DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "l8r-dev";
+			productName = l8r;
+			productReference = F1DD249A1C3D9E2900FD10DA /* l8r-dev.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -117,6 +149,7 @@
 			projectRoot = "";
 			targets = (
 				01439E481C03BE58000CE85F /* l8r */,
+				F1DD248D1C3D9E2900FD10DA /* l8r-dev */,
 			);
 		};
 /* End PBXProject section */
@@ -132,6 +165,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1DD24931C3D9E2900FD10DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1DD24941C3D9E2900FD10DA /* LaunchScreen.storyboard in Resources */,
+				F1DD24951C3D9E2900FD10DA /* Assets.xcassets in Resources */,
+				F1DD24961C3D9E2900FD10DA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -142,6 +185,16 @@
 				01439E551C03BE58000CE85F /* l8r.xcdatamodeld in Sources */,
 				01439E4F1C03BE58000CE85F /* ViewController.swift in Sources */,
 				01439E4D1C03BE58000CE85F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1DD248E1C3D9E2900FD10DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1DD248F1C3D9E2900FD10DA /* l8r.xcdatamodeld in Sources */,
+				F1DD24901C3D9E2900FD10DA /* ViewController.swift in Sources */,
+				F1DD24911C3D9E2900FD10DA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +329,34 @@
 			};
 			name = Release;
 		};
+		F1DD24981C3D9E2900FD10DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/l8r/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = .l8r;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F1DD24991C3D9E2900FD10DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = "$(SRCROOT)/l8r/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = .l8r;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -293,6 +374,15 @@
 			buildConfigurations = (
 				01439E5F1C03BE58000CE85F /* Debug */,
 				01439E601C03BE58000CE85F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1DD24971C3D9E2900FD10DA /* Build configuration list for PBXNativeTarget "l8r-dev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1DD24981C3D9E2900FD10DA /* Debug */,
+				F1DD24991C3D9E2900FD10DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

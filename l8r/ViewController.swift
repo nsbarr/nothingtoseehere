@@ -183,12 +183,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextViewD
             }
         }
         
-        var error:NSError?
         let possibleCameraInput: AnyObject?
         do {
             possibleCameraInput = try AVCaptureDeviceInput(device: backCameraDevice)
-        } catch let error1 as NSError {
-            error = error1
+        } catch let error as NSError {
+            NSLog("Error:\(error)")
             possibleCameraInput = nil
         }
         if let backCameraInput = possibleCameraInput as? AVCaptureDeviceInput {
@@ -505,24 +504,22 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextViewD
     
     
     func fetchListOfL8rAlbums(){
-        var assetCollections = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.Album, subtype: PHAssetCollectionSubtype.AlbumRegular, options: nil)
+        let assetCollections = PHAssetCollection.fetchAssetCollectionsWithType(PHAssetCollectionType.Album, subtype: PHAssetCollectionSubtype.AlbumRegular, options: nil)
         
-        for var i = 0 ; i < assetCollections.count ; i++
-        {
-            let assetCollection = assetCollections[i] as? PHAssetCollection
-            
-            let fetchOptions = PHFetchOptions()
-            fetchOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)
-            
-            let assetsInCollection  = PHAsset.fetchAssetsInAssetCollection(assetCollection!, options: fetchOptions)
-            
-            if assetCollection?.localizedTitle!.rangeOfString("l8r") != nil{
+        for i in 0..<assetCollections.count {
+            if let assetCollection = assetCollections[i] as? PHAssetCollection {
                 
-                if let localizedTitle = assetCollection?.localizedTitle
-                {
-                    let l8rLessTitle = localizedTitle.stringByReplacingOccurrencesOfString("l8r", withString: "")
-                    print(l8rLessTitle)
-                    
+                let fetchOptions = PHFetchOptions()
+                fetchOptions.predicate = NSPredicate(format: "mediaType = %i", PHAssetMediaType.Image.rawValue)
+           
+                
+//                let assetsInCollection  = PHAsset.fetchAssetsInAssetCollection(assetCollection, options: fetchOptions)
+                
+                if let localizedTitle = assetCollection.localizedTitle {
+                    if localizedTitle.rangeOfString("l8r") != nil{
+                        let l8rLessTitle = localizedTitle.stringByReplacingOccurrencesOfString("l8r", withString: "")
+                        print(l8rLessTitle)
+                    }
                 }
             }
         }
@@ -1028,14 +1025,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextViewD
 
         
         if currentDeviceIsBack {
-            var error:NSError?
+
             let possibleCameraInput: AnyObject?
+            
             do {
                 possibleCameraInput = try AVCaptureDeviceInput(device: frontCameraDevice)
-            } catch let error1 as NSError {
-                error = error1
+            }
+            catch let error as NSError {
+                NSLog("Error:\(error)")
                 possibleCameraInput = nil
             }
+            
             if let frontCameraInput = possibleCameraInput as? AVCaptureDeviceInput {
                 self.session.beginConfiguration()
                 self.session.removeInput(currentInput)
@@ -1050,12 +1050,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UITextViewD
             }
         }
         else {
-            var error:NSError?
+
             let possibleCameraInput: AnyObject?
             do {
                 possibleCameraInput = try AVCaptureDeviceInput(device: backCameraDevice)
-            } catch let error1 as NSError {
-                error = error1
+            }
+            catch let error as NSError {
+                NSLog("Error:\(error)")
                 possibleCameraInput = nil
             }
             if let backCameraInput = possibleCameraInput as? AVCaptureDeviceInput {
