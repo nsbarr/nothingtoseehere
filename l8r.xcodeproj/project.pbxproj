@@ -337,7 +337,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/l8r/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = .l8r;
+				PRODUCT_BUNDLE_IDENTIFIER = ".l8r-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -351,7 +351,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/l8r/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = .l8r;
+				PRODUCT_BUNDLE_IDENTIFIER = ".l8r-dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
