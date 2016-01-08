@@ -13,6 +13,7 @@
 		01439E551C03BE58000CE85F /* l8r.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01439E531C03BE58000CE85F /* l8r.xcdatamodeld */; };
 		01439E571C03BE58000CE85F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01439E561C03BE58000CE85F /* Assets.xcassets */; };
 		01439E5A1C03BE58000CE85F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01439E581C03BE58000CE85F /* LaunchScreen.storyboard */; };
+		F1651E411C4009930068172C /* PhotoCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1651E401C4009930068172C /* PhotoCameraController.swift */; };
 		F1DD248F1C3D9E2900FD10DA /* l8r.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01439E531C03BE58000CE85F /* l8r.xcdatamodeld */; };
 		F1DD24901C3D9E2900FD10DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01439E4E1C03BE58000CE85F /* ViewController.swift */; };
 		F1DD24911C3D9E2900FD10DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01439E4C1C03BE58000CE85F /* AppDelegate.swift */; };
@@ -49,6 +50,7 @@
 		01439E561C03BE58000CE85F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01439E591C03BE58000CE85F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01439E5B1C03BE58000CE85F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1651E401C4009930068172C /* PhotoCameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCameraController.swift; sourceTree = "<group>"; };
 		F1DD249A1C3D9E2900FD10DA /* l8r-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "l8r-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1DD24A31C3DC90C00FD10DA /* L8R-sk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "L8R-sk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1DD24A51C3DC90C00FD10DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				F1DD25151C3EEB7800FD10DA /* L8RSKItemStack.swift */,
 				F1DD250A1C3DD88700FD10DA /* L8RSKScrollerNode.swift */,
 				F1DD252C1C3F19BA00FD10DA /* CreateL8RSKNode.swift */,
+				F1651E401C4009930068172C /* PhotoCameraController.swift */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				F1DD24A61C3DC90C00FD10DA /* AppDelegate.swift in Sources */,
 				F1DD250F1C3EDDF900FD10DA /* L8RItem.swift in Sources */,
 				F1DD25291C3F053400FD10DA /* NSType_Extensions.swift in Sources */,
+				F1651E411C4009930068172C /* PhotoCameraController.swift in Sources */,
 				F1DD25161C3EEB7800FD10DA /* L8RSKItemStack.swift in Sources */,
 				F1DD252B1C3F053D00FD10DA /* SpriteKit_Extensions.swift in Sources */,
 			);

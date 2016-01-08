@@ -2,6 +2,18 @@ import Foundation
 import SpriteKit
 import AVFoundation
 
+extension CIContext {
+    func createCGImage_(image:CIImage, fromRect:CGRect) -> CGImage {
+        let width = Int(fromRect.width)
+        let height = Int(fromRect.height)
+        
+        let rawData =  UnsafeMutablePointer<UInt8>.alloc(width * height * 4)
+        render(image, toBitmap: rawData, rowBytes: width * 4, bounds: fromRect, format: kCIFormatRGBA8, colorSpace: CGColorSpaceCreateDeviceRGB())
+        let dataProvider = CGDataProviderCreateWithData(nil, rawData, height * width * 4) {info, data, size in UnsafeMutablePointer<UInt8>(data).dealloc(size)}
+        return CGImageCreate(width, height, 8, 32, width * 4, CGColorSpaceCreateDeviceRGB(), CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue), dataProvider, nil, false, .RenderingIntentDefault)!
+    }
+}
+
 public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
 
 
@@ -25,20 +37,16 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
     
     var videoOutput:AVCaptureVideoDataOutput!
     
+
     public override init() {
         
     }
     
     func updateLastFrame(ciImage:CIImage, width:Int) {
         NSThread.dispatchAsyncOnMainQueue() {
-            dispatch_barrier_sync(self.cameraFrameQueue, { () -> Void in
 //                if self.isUpdatingCameraFrame {
 //                    return
 //                }
-                self.isUpdatingCameraFrame = true
-                defer {
-                    self.isUpdatingCameraFrame = false
-                }
                 let nWidth = 640 //target iphone5 screen @2x
                 let xRatio = Float(nWidth.cgf / width.cgf)
                 
@@ -46,19 +54,26 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
                     if let resizedImage = resizeFilter.outputImage {
                         let resizeStart = CACurrentMediaTime()
 //                        let uiImage = UIImage(CIImage: resizedImage)
-                        let context = CIContext(options: nil)
-                        
-                        let cgImage = context.createCGImage(resizedImage, fromRect: resizedImage.extent)
-                        self.lastFrame = UIImage(CGImage: cgImage)
+
+                        let ciContext = CIContext(options: nil)
+                        let cgImage = ciContext.createCGImage(resizedImage, fromRect: resizedImage.extent)
                         let resizeEnd = CACurrentMediaTime()
-                        self.hasFrameData = true
+
+                        dispatch_barrier_sync(self.cameraFrameQueue, { () -> Void in
+                            self.isUpdatingCameraFrame = true
+                            defer {
+                                self.isUpdatingCameraFrame = false
+                            }
+                            self.lastFrame = UIImage(CGImage: cgImage)
+                            self.hasFrameData = true
+                        })
+
 
 //                        print("Frame update resizeTime = \(resizeEnd-resizeStart) / sz=\(self.lastFrame.size))")
                     }
                 }
 
 
-            })
         }
     }
     
