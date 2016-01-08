@@ -5,8 +5,9 @@ import AVFoundation
 public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
 
 
-    public var lastFrame:CGImageRef!
-    public var lastFrameSize:CGSize!
+    public var lastFrame:UIImage!
+    
+    var lastFrameReceivedAt:NSTimeInterval = 0
     
     var cameraFrameQueue = dispatch_queue_create("l8r.camera.frameQueue", DISPATCH_QUEUE_CONCURRENT);
     var isUpdatingCameraFrame:Bool = false
@@ -28,21 +29,49 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
         
     }
     
-    public func retrieveLastFrame(retrieveBlock:((image: CGImageRef?, size:CGSize?) -> Void)) {
-        dispatch_barrier_sync(cameraFrameQueue, { () -> Void in
-            if self.isUpdatingCameraFrame {
-                return
-            }
-            self.isUpdatingCameraFrame = true
-            defer {
-                self.isUpdatingCameraFrame = false
-            }
+    func updateLastFrame(ciImage:CIImage, width:Int) {
+        NSThread.dispatchAsyncOnMainQueue() {
+            dispatch_barrier_sync(self.cameraFrameQueue, { () -> Void in
+//                if self.isUpdatingCameraFrame {
+//                    return
+//                }
+                self.isUpdatingCameraFrame = true
+                defer {
+                    self.isUpdatingCameraFrame = false
+                }
+                let nWidth = 640 //target iphone5 screen @2x
+                let xRatio = Float(nWidth.cgf / width.cgf)
+                
+                if let resizeFilter = CIFilter(name: "CILanczosScaleTransform", withInputParameters: ["inputImage": ciImage, "inputAspectRatio": NSNumber(float: 1), "inputScale" : NSNumber(float:xRatio)]) {
+                    if let resizedImage = resizeFilter.outputImage {
+                        let resizeStart = CACurrentMediaTime()
+//                        let uiImage = UIImage(CIImage: resizedImage)
+                        let context = CIContext(options: nil)
+                        
+                        let cgImage = context.createCGImage(resizedImage, fromRect: resizedImage.extent)
+                        self.lastFrame = UIImage(CGImage: cgImage)
+                        let resizeEnd = CACurrentMediaTime()
+                        self.hasFrameData = true
+
+//                        print("Frame update resizeTime = \(resizeEnd-resizeStart) / sz=\(self.lastFrame.size))")
+                    }
+                }
+
+
+            })
+        }
+    }
+    
+    public func retrieveLastFrame(retrieveBlock:((image: UIImage?) -> Void)) {
+        dispatch_barrier_async(cameraFrameQueue, { () -> Void in
+//            if self.isUpdatingCameraFrame {
+//                return
+//            }
 
             let image = self.lastFrame
-            let size = self.lastFrameSize
             
             NSThread.dispatchAsyncOnMainQueue() {
-                retrieveBlock(image: image, size: size )
+                retrieveBlock(image: image)
             }
         })
     }
@@ -162,44 +191,26 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
     to minimize memory usage.
     Only one image from the camera is in memory at any one time.
     
-    TODO measure performance to see if the calls to the dispatch barrier are piling up or if they are being processed fast enough to not be overwhelmed by the camera
     
     TODO add the ability to ignore the output altogether, ie when the camera is not visible this method should just not collect data at all or do it very infrequently at a minimum.
     */
     public func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
+        let time = CACurrentMediaTime()
+        let frameTimeDif = time - lastFrameReceivedAt
+        lastFrameReceivedAt = time
         
-        dispatch_barrier_async(cameraFrameQueue, { () -> Void in
-            if self.isUpdatingCameraFrame {
-                return
-            }
-            if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
-                //turn the same buffer into a CoreImage image (CIImage) so that we can apply a filter to it.
-                let ciImage = CIImage(CVPixelBuffer: imageBuffer)
-                
-                let width = CVPixelBufferGetWidth(imageBuffer)
-                let height = CVPixelBufferGetHeight(imageBuffer)
-                
-                let nWidth = 640 //target iphone5 screen @2x
-                let nHeight = Int(640 * (height / width))
-                let xRatio = Float(nWidth.cgf / width.cgf)
-                
-                let resizeFilter = CIFilter(name: "CILanczosScaleTransform", withInputParameters: ["inputImage": ciImage, "inputAspectRatio": NSNumber(float: 1), "inputScale" : NSNumber(float:xRatio)])
-                let resizedImage = resizeFilter!.outputImage
-                
-                let context = CIContext(options: nil)
-                
-                let cgImage = context.createCGImage(resizedImage!, fromRect: resizedImage!.extent)
-                let cgImageSize = CGSize(width: nWidth, height: nHeight)
-                
-                self.lastFrame = cgImage
-                self.lastFrameSize = cgImageSize
-
-                self.hasFrameData = true
-            }
+//        let processTimeStart = CACurrentMediaTime()
+       
+        if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
+            //turn the same buffer into a CoreImage image (CIImage) so that we can apply a filter to it.
+            let ciImage = CIImage(CVPixelBuffer: imageBuffer)
+            let width = CVPixelBufferGetWidth(imageBuffer)
+            updateLastFrame(ciImage, width: width)
+//                let height = CVPixelBufferGetHeight(imageBuffer)
             
-            
-            
-        })
+//            let processTimeEnd = CACurrentMediaTime()
+//            print("Frames received every \(frameTimeDif) sec, processing time = \(processTimeEnd-processTimeStart)")
+        }
     }
 
 }

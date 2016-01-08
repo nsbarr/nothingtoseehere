@@ -190,8 +190,8 @@ class L8RScene: SKScene, UIGestureRecognizerDelegate {
         if (time - lastUpdate) > (1.0/30.0) { //this is processed up to 30 times per second
             lastUpdate = time
             if self.photoCameraController != nil && self.l8rScroller?.l8rCreatorNode != nil && self.photoCameraController.hasFrameData {
-                self.photoCameraController.retrieveLastFrame({ (image, size) -> Void in
-                    self.l8rScroller.l8rCreatorNode.updateCameraFrame(image, size: size)
+                self.photoCameraController.retrieveLastFrame({ (image) -> Void in
+                    self.l8rScroller.l8rCreatorNode.updateCameraFrame(image)
                 })
             }
         }
