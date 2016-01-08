@@ -2,22 +2,10 @@ import Foundation
 import SpriteKit
 import AVFoundation
 
-extension CIContext {
-    func createCGImage_(image:CIImage, fromRect:CGRect) -> CGImage {
-        let width = Int(fromRect.width)
-        let height = Int(fromRect.height)
-        
-        let rawData =  UnsafeMutablePointer<UInt8>.alloc(width * height * 4)
-        render(image, toBitmap: rawData, rowBytes: width * 4, bounds: fromRect, format: kCIFormatRGBA8, colorSpace: CGColorSpaceCreateDeviceRGB())
-        let dataProvider = CGDataProviderCreateWithData(nil, rawData, height * width * 4) {info, data, size in UnsafeMutablePointer<UInt8>(data).dealloc(size)}
-        return CGImageCreate(width, height, 8, 32, width * 4, CGColorSpaceCreateDeviceRGB(), CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedLast.rawValue), dataProvider, nil, false, .RenderingIntentDefault)!
-    }
-}
-
 public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
 
 
-    public var lastFrame:UIImage!
+    public var lastFrame:SKTexture!
     
     var lastFrameReceivedAt:NSTimeInterval = 0
     
@@ -31,9 +19,6 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
     var currentInput: AVCaptureDeviceInput?
     var currentDeviceIsBack = true
     var sessionQueue:dispatch_queue_t!
-    var tempPreviewLayerView = UIImageView()
-    
-    var previewLayerImage = UIImage()
     
     var videoOutput:AVCaptureVideoDataOutput!
     
@@ -42,42 +27,21 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
         
     }
     
-    func updateLastFrame(ciImage:CIImage, width:Int) {
-        NSThread.dispatchAsyncOnMainQueue() {
-//                if self.isUpdatingCameraFrame {
-//                    return
-//                }
-                let nWidth = 640 //target iphone5 screen @2x
-                let xRatio = Float(nWidth.cgf / width.cgf)
-                
-                if let resizeFilter = CIFilter(name: "CILanczosScaleTransform", withInputParameters: ["inputImage": ciImage, "inputAspectRatio": NSNumber(float: 1), "inputScale" : NSNumber(float:xRatio)]) {
-                    if let resizedImage = resizeFilter.outputImage {
-                        let resizeStart = CACurrentMediaTime()
-//                        let uiImage = UIImage(CIImage: resizedImage)
+    var imV:UIImageView!
+    
+    func updateLastFrame(texture:SKTexture) {
 
-                        let ciContext = CIContext(options: nil)
-                        let cgImage = ciContext.createCGImage(resizedImage, fromRect: resizedImage.extent)
-                        let resizeEnd = CACurrentMediaTime()
-
-                        dispatch_barrier_sync(self.cameraFrameQueue, { () -> Void in
-                            self.isUpdatingCameraFrame = true
-                            defer {
-                                self.isUpdatingCameraFrame = false
-                            }
-                            self.lastFrame = UIImage(CGImage: cgImage)
-                            self.hasFrameData = true
-                        })
-
-
-//                        print("Frame update resizeTime = \(resizeEnd-resizeStart) / sz=\(self.lastFrame.size))")
-                    }
-                }
-
-
-        }
+        dispatch_barrier_sync(self.cameraFrameQueue, { () -> Void in
+            self.isUpdatingCameraFrame = true
+            defer {
+                self.isUpdatingCameraFrame = false
+            }
+            self.lastFrame = texture//UIImage(CGImage: cgImage)
+            self.hasFrameData = true
+        })
     }
     
-    public func retrieveLastFrame(retrieveBlock:((image: UIImage?) -> Void)) {
+    public func retrieveLastFrame(retrieveBlock:((image: SKTexture?) -> Void)) {
         dispatch_barrier_async(cameraFrameQueue, { () -> Void in
 //            if self.isUpdatingCameraFrame {
 //                return
@@ -94,8 +58,14 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
     public var hasFrameData:Bool = false
     
     public func teardownCamera() {
+        
         dispatch_async(sessionQueue, {
             self.session.stopRunning()
+            self.session.removeOutput(self.videoOutput)
+            self.session.removeOutput(self.stillImageOutput)
+            self.videoOutput = nil
+            self.stillImageOutput = nil
+            self.session = nil
             //            NSNotificationCenter.defaultCenter().removeObserver(self.runtimeErrorHandlingObserver)
         })
     }
@@ -141,11 +111,14 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
         videoOutput = AVCaptureVideoDataOutput()
         videoOutput.setSampleBufferDelegate(self, queue: dispatch_queue_create("com.l8r.camera.SampleBufferDelegateQueue", DISPATCH_QUEUE_SERIAL))
         videoOutput.alwaysDiscardsLateVideoFrames = true
+        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey: NSNumber(unsignedInt: kCVPixelFormatType_32BGRA)]// kCVPixelBufferCGImageCompatibilityKey
+//        videoOutput.videoSettings = [kCVPixelBufferCGImageCompatibilityKey: NSNumber(bool: true), kCVPixelBufferPixelFormatTypeKey: NSNumber(unsignedInt: kCVPixelFormatType_32ABGR)]// kCVPixelBufferCGImageCompatibilityKey
         if session.canAddOutput(self.videoOutput) {
             session.addOutput(self.videoOutput)
         }
         if let videoBufferConnection = videoOutput.connectionWithMediaType(AVMediaTypeVideo) {
             videoBufferConnection.videoOrientation = AVCaptureVideoOrientation.Portrait
+            
         }
         
         stillImageOutput = AVCaptureStillImageOutput()
@@ -215,17 +188,47 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
         lastFrameReceivedAt = time
         
 //        let processTimeStart = CACurrentMediaTime()
-       
         if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
-            //turn the same buffer into a CoreImage image (CIImage) so that we can apply a filter to it.
-            let ciImage = CIImage(CVPixelBuffer: imageBuffer)
-            let width = CVPixelBufferGetWidth(imageBuffer)
-            updateLastFrame(ciImage, width: width)
-//                let height = CVPixelBufferGetHeight(imageBuffer)
+            var pixelBuffer = imageBuffer
             
+            let val = CVPixelBufferLockBaseAddress(imageBuffer, 0);
+
+            if val == kCVReturnSuccess {
+                let sourceBaseAddr = CVPixelBufferGetBaseAddress( pixelBuffer )
+                let colorspace = CGColorSpaceCreateDeviceRGB()
+//                let baseAddress = CVPixelBufferGetBaseAddressOfPlane(imageBuffer, 0)
+                
+                let bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
+
+                let width = CVPixelBufferGetWidth(imageBuffer);
+                let height = CVPixelBufferGetHeight(imageBuffer);
+                let provider = CGDataProviderCreateWithData( &pixelBuffer, sourceBaseAddr, bytesPerRow * height, ReleaseCVPixelBuffer) //
+                if let image = CGImageCreate(width, height, 8, 32, bytesPerRow, colorspace, CGBitmapInfo(rawValue: CGBitmapInfo.ByteOrder32Little.rawValue | CGImageAlphaInfo.PremultipliedFirst.rawValue), provider, nil, true, CGColorRenderingIntent.RenderingIntentDefault) {
+
+                    let tex = SKTexture(CGImage: image)
+
+                    updateLastFrame(tex)
+                }
+
+
+            }
 //            let processTimeEnd = CACurrentMediaTime()
 //            print("Frames received every \(frameTimeDif) sec, processing time = \(processTimeEnd-processTimeStart)")
+        
         }
+        
     }
 
+}
+
+func ReleaseCVPixelBuffer(pixel:UnsafeMutablePointer<Void>, data:UnsafePointer<Void>, size:Int) -> Void {
+//    print("xx")
+    let infoPtr = UnsafeMutablePointer<CVPixelBufferRef>(pixel)
+
+    CVPixelBufferUnlockBaseAddress(infoPtr.memory, 0)
+//   infoPtr.destroy()
+
+}
+func sessionQueueCleanup() {
+    
 }

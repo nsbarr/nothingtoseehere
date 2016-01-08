@@ -41,9 +41,11 @@ public class CreateL8RSKNode : SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func updateCameraFrame(image:UIImage?) {
+    public func updateCameraFrame(image:SKTexture?) {
         if let textureImage = image {
-            self.texture = SKTexture(image: textureImage)
+//            NSThread.dispatchAsyncOnMainQueue() {
+            self.texture = textureImage//SKTexture(image: textureImage)
+//            }
         }
         else {
             //TODO set to a default?
