@@ -12,7 +12,7 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
     var cameraFrameQueue = dispatch_queue_create("l8r.camera.frameQueue", DISPATCH_QUEUE_CONCURRENT);
     var isUpdatingCameraFrame:Bool = false
     
-    var backCameraDevice:AVCaptureDevice?
+    var backCameraDevice:AVCaptureDevice!
     var frontCameraDevice:AVCaptureDevice?
     var stillImageOutput:AVCaptureStillImageOutput!
     var session:AVCaptureSession!
@@ -108,11 +108,52 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
             }
         }
         
+        do {
+            
+            let desiredFrameRate:Double = 30
+
+            if let formats = backCameraDevice.formats as? [AVCaptureDeviceFormat] {
+                for format:AVCaptureDeviceFormat in formats {
+                    if CMFormatDescriptionGetMediaSubType(format.formatDescription) ==
+                        kCVPixelFormatType_420YpCbCr8BiPlanarFullRange {
+                            
+                            if let frameRateRanges = format.videoSupportedFrameRateRanges as? [AVFrameRateRange] {
+                                var found:Bool = false
+                                for range:AVFrameRateRange in frameRateRanges  {
+                                    if range.maxFrameRate >= desiredFrameRate {
+                                        NSLog("Format Selected = \(format.formatDescription) \n\tMin frame rate = \(range.minFrameRate)\n\tMax frame rate=\(range.maxFrameRate)")
+                                        try backCameraDevice!.lockForConfiguration()
+                                        backCameraDevice.activeFormat = format
+                                        backCameraDevice.activeVideoMaxFrameDuration = CMTime(value: 1, timescale: CMTimeScale(desiredFrameRate), flags: CMTimeFlags.Valid, epoch: CMTimeEpoch(0))
+                                        backCameraDevice.activeVideoMinFrameDuration = CMTime(value: 1, timescale: CMTimeScale(desiredFrameRate), flags: CMTimeFlags.Valid, epoch: CMTimeEpoch(0))
+                                        backCameraDevice!.unlockForConfiguration()
+                                        print("Frame rate set at \(desiredFrameRate) fps")
+                                        found = true
+                                        break
+
+                                    }
+                                }
+                                if found {
+                                    break
+                                }
+                            }
+                    }
+                }
+            }
+            
+            
+            
+        }
+        catch let error {
+            NSLog("Error: \(error)")
+        }
+        
+        
         videoOutput = AVCaptureVideoDataOutput()
         videoOutput.setSampleBufferDelegate(self, queue: dispatch_queue_create("com.l8r.camera.SampleBufferDelegateQueue", DISPATCH_QUEUE_SERIAL))
         videoOutput.alwaysDiscardsLateVideoFrames = true
-        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey: NSNumber(unsignedInt: kCVPixelFormatType_32BGRA)]// kCVPixelBufferCGImageCompatibilityKey
-//        videoOutput.videoSettings = [kCVPixelBufferCGImageCompatibilityKey: NSNumber(bool: true), kCVPixelBufferPixelFormatTypeKey: NSNumber(unsignedInt: kCVPixelFormatType_32ABGR)]// kCVPixelBufferCGImageCompatibilityKey
+        videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey: NSNumber(unsignedInt: kCVPixelFormatType_32BGRA)]
+
         if session.canAddOutput(self.videoOutput) {
             session.addOutput(self.videoOutput)
         }
@@ -127,12 +168,15 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
         if session.canAddOutput(stillImageOutput) {
             session.addOutput(stillImageOutput)
         }
-        
+        if let buffer = stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) {
+            buffer.videoOrientation = AVCaptureVideoOrientation.Portrait
+        }
+
         //        let connection = self.stillCameraOutput.connectionWithMediaType(AVMediaTypeVideo)
         //        connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
         
         //this auto-handles focus, WB, exposure, etc.
-        session.sessionPreset = AVCaptureSessionPresetPhoto
+//        session.sessionPreset = AVCaptureSessionPresetHigh// AVCaptureSessionPresetPhoto
         
         sessionQueue = dispatch_queue_create("com.l8r.camera.captureSession", DISPATCH_QUEUE_SERIAL)
         dispatch_async(sessionQueue) { () -> Void in
@@ -186,7 +230,8 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
         let time = CACurrentMediaTime()
         let frameTimeDif = time - lastFrameReceivedAt
         lastFrameReceivedAt = time
-        
+//        print("Frames received every \(frameTimeDif) sec")
+
 //        let processTimeStart = CACurrentMediaTime()
         if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
             var pixelBuffer = imageBuffer
@@ -228,7 +273,4 @@ func ReleaseCVPixelBuffer(pixel:UnsafeMutablePointer<Void>, data:UnsafePointer<V
     CVPixelBufferUnlockBaseAddress(infoPtr.memory, 0)
 //   infoPtr.destroy()
 
-}
-func sessionQueueCleanup() {
-    
 }
