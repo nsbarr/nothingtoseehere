@@ -19,6 +19,25 @@
 		F1DD24941C3D9E2900FD10DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01439E581C03BE58000CE85F /* LaunchScreen.storyboard */; };
 		F1DD24951C3D9E2900FD10DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01439E561C03BE58000CE85F /* Assets.xcassets */; };
 		F1DD24961C3D9E2900FD10DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01439E501C03BE58000CE85F /* Main.storyboard */; };
+		F1DD24A61C3DC90C00FD10DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD24A51C3DC90C00FD10DA /* AppDelegate.swift */; };
+		F1DD24A81C3DC90C00FD10DA /* L8RScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F1DD24A71C3DC90C00FD10DA /* L8RScene.sks */; };
+		F1DD24AA1C3DC90C00FD10DA /* L8RScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD24A91C3DC90C00FD10DA /* L8RScene.swift */; };
+		F1DD24AC1C3DC90C00FD10DA /* L8RViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD24AB1C3DC90C00FD10DA /* L8RViewController.swift */; };
+		F1DD24AF1C3DC90C00FD10DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1DD24AD1C3DC90C00FD10DA /* Main.storyboard */; };
+		F1DD24B11C3DC90C00FD10DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1DD24B01C3DC90C00FD10DA /* Assets.xcassets */; };
+		F1DD24B41C3DC90C00FD10DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1DD24B21C3DC90C00FD10DA /* LaunchScreen.storyboard */; };
+		F1DD250B1C3DD88700FD10DA /* L8RSKScrollerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD250A1C3DD88700FD10DA /* L8RSKScrollerNode.swift */; };
+		F1DD250D1C3DDAE000FD10DA /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD250C1C3DDAE000FD10DA /* Util.swift */; };
+		F1DD250F1C3EDDF900FD10DA /* L8RItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD250E1C3EDDF900FD10DA /* L8RItem.swift */; };
+		F1DD25111C3EDE7F00FD10DA /* L8RItemSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD25101C3EDE7F00FD10DA /* L8RItemSet.swift */; };
+		F1DD25141C3EEA6700FD10DA /* L8RSKItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD25131C3EEA6700FD10DA /* L8RSKItem.swift */; };
+		F1DD25161C3EEB7800FD10DA /* L8RSKItemStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD25151C3EEB7800FD10DA /* L8RSKItemStack.swift */; };
+		F1DD25231C3F019000FD10DA /* NSFileManager_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD25221C3F019000FD10DA /* NSFileManager_Extensions.swift */; };
+		F1DD25251C3F01C900FD10DA /* L8RDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD25241C3F01C900FD10DA /* L8RDirectory.swift */; };
+		F1DD25271C3F050500FD10DA /* NSThread_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD25261C3F050500FD10DA /* NSThread_Extensions.swift */; };
+		F1DD25291C3F053400FD10DA /* NSType_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD25281C3F053300FD10DA /* NSType_Extensions.swift */; };
+		F1DD252B1C3F053D00FD10DA /* SpriteKit_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD252A1C3F053D00FD10DA /* SpriteKit_Extensions.swift */; };
+		F1DD252D1C3F19BA00FD10DA /* CreateL8RSKNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD252C1C3F19BA00FD10DA /* CreateL8RSKNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +50,27 @@
 		01439E591C03BE58000CE85F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01439E5B1C03BE58000CE85F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1DD249A1C3D9E2900FD10DA /* l8r-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "l8r-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1DD24A31C3DC90C00FD10DA /* L8R-sk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "L8R-sk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1DD24A51C3DC90C00FD10DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F1DD24A71C3DC90C00FD10DA /* L8RScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = L8RScene.sks; sourceTree = "<group>"; };
+		F1DD24A91C3DC90C00FD10DA /* L8RScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L8RScene.swift; sourceTree = "<group>"; };
+		F1DD24AB1C3DC90C00FD10DA /* L8RViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L8RViewController.swift; sourceTree = "<group>"; };
+		F1DD24AE1C3DC90C00FD10DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F1DD24B01C3DC90C00FD10DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F1DD24B31C3DC90C00FD10DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F1DD24B51C3DC90C00FD10DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1DD250A1C3DD88700FD10DA /* L8RSKScrollerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L8RSKScrollerNode.swift; sourceTree = "<group>"; };
+		F1DD250C1C3DDAE000FD10DA /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		F1DD250E1C3EDDF900FD10DA /* L8RItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L8RItem.swift; sourceTree = "<group>"; };
+		F1DD25101C3EDE7F00FD10DA /* L8RItemSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L8RItemSet.swift; sourceTree = "<group>"; };
+		F1DD25131C3EEA6700FD10DA /* L8RSKItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L8RSKItem.swift; sourceTree = "<group>"; };
+		F1DD25151C3EEB7800FD10DA /* L8RSKItemStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L8RSKItemStack.swift; sourceTree = "<group>"; };
+		F1DD25221C3F019000FD10DA /* NSFileManager_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSFileManager_Extensions.swift; sourceTree = "<group>"; };
+		F1DD25241C3F01C900FD10DA /* L8RDirectory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L8RDirectory.swift; sourceTree = "<group>"; };
+		F1DD25261C3F050500FD10DA /* NSThread_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSThread_Extensions.swift; sourceTree = "<group>"; };
+		F1DD25281C3F053300FD10DA /* NSType_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSType_Extensions.swift; sourceTree = "<group>"; };
+		F1DD252A1C3F053D00FD10DA /* SpriteKit_Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteKit_Extensions.swift; sourceTree = "<group>"; };
+		F1DD252C1C3F19BA00FD10DA /* CreateL8RSKNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateL8RSKNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +88,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1DD24A01C3DC90C00FD10DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -55,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				01439E4B1C03BE58000CE85F /* l8r */,
+				F1DD24A41C3DC90C00FD10DA /* L8R-sk */,
 				01439E4A1C03BE58000CE85F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,6 +112,7 @@
 			children = (
 				01439E491C03BE58000CE85F /* l8r.app */,
 				F1DD249A1C3D9E2900FD10DA /* l8r-dev.app */,
+				F1DD24A31C3DC90C00FD10DA /* L8R-sk.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -80,6 +129,57 @@
 				01439E531C03BE58000CE85F /* l8r.xcdatamodeld */,
 			);
 			path = l8r;
+			sourceTree = "<group>";
+		};
+		F1DD24A41C3DC90C00FD10DA /* L8R-sk */ = {
+			isa = PBXGroup;
+			children = (
+				F1DD25211C3F017200FD10DA /* Util */,
+				F1DD25171C3EEDF300FD10DA /* Data */,
+				F1DD25121C3EEA5600FD10DA /* UI */,
+				F1DD24A51C3DC90C00FD10DA /* AppDelegate.swift */,
+				F1DD24A71C3DC90C00FD10DA /* L8RScene.sks */,
+				F1DD24A91C3DC90C00FD10DA /* L8RScene.swift */,
+				F1DD24AB1C3DC90C00FD10DA /* L8RViewController.swift */,
+				F1DD24AD1C3DC90C00FD10DA /* Main.storyboard */,
+				F1DD24B01C3DC90C00FD10DA /* Assets.xcassets */,
+				F1DD24B21C3DC90C00FD10DA /* LaunchScreen.storyboard */,
+				F1DD24B51C3DC90C00FD10DA /* Info.plist */,
+			);
+			path = "L8R-sk";
+			sourceTree = "<group>";
+		};
+		F1DD25121C3EEA5600FD10DA /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				F1DD25131C3EEA6700FD10DA /* L8RSKItem.swift */,
+				F1DD25151C3EEB7800FD10DA /* L8RSKItemStack.swift */,
+				F1DD250A1C3DD88700FD10DA /* L8RSKScrollerNode.swift */,
+				F1DD252C1C3F19BA00FD10DA /* CreateL8RSKNode.swift */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		F1DD25171C3EEDF300FD10DA /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F1DD250E1C3EDDF900FD10DA /* L8RItem.swift */,
+				F1DD25101C3EDE7F00FD10DA /* L8RItemSet.swift */,
+				F1DD25241C3F01C900FD10DA /* L8RDirectory.swift */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		F1DD25211C3F017200FD10DA /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				F1DD250C1C3DDAE000FD10DA /* Util.swift */,
+				F1DD25221C3F019000FD10DA /* NSFileManager_Extensions.swift */,
+				F1DD25261C3F050500FD10DA /* NSThread_Extensions.swift */,
+				F1DD25281C3F053300FD10DA /* NSType_Extensions.swift */,
+				F1DD252A1C3F053D00FD10DA /* SpriteKit_Extensions.swift */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,19 +219,39 @@
 			productReference = F1DD249A1C3D9E2900FD10DA /* l8r-dev.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F1DD24A21C3DC90C00FD10DA /* L8R-sk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1DD24B61C3DC90C00FD10DA /* Build configuration list for PBXNativeTarget "L8R-sk" */;
+			buildPhases = (
+				F1DD249F1C3DC90C00FD10DA /* Sources */,
+				F1DD24A01C3DC90C00FD10DA /* Frameworks */,
+				F1DD24A11C3DC90C00FD10DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "L8R-sk";
+			productName = "L8R-sk";
+			productReference = F1DD24A31C3DC90C00FD10DA /* L8R-sk.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		01439E411C03BE58000CE85F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = poemsio;
 				TargetAttributes = {
 					01439E481C03BE58000CE85F = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 3RA98GNA2A;
+					};
+					F1DD24A21C3DC90C00FD10DA = {
+						CreatedOnToolsVersion = 7.2;
 					};
 				};
 			};
@@ -150,6 +270,7 @@
 			targets = (
 				01439E481C03BE58000CE85F /* l8r */,
 				F1DD248D1C3D9E2900FD10DA /* l8r-dev */,
+				F1DD24A21C3DC90C00FD10DA /* L8R-sk */,
 			);
 		};
 /* End PBXProject section */
@@ -172,6 +293,17 @@
 				F1DD24941C3D9E2900FD10DA /* LaunchScreen.storyboard in Resources */,
 				F1DD24951C3D9E2900FD10DA /* Assets.xcassets in Resources */,
 				F1DD24961C3D9E2900FD10DA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1DD24A11C3DC90C00FD10DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1DD24A81C3DC90C00FD10DA /* L8RScene.sks in Resources */,
+				F1DD24B41C3DC90C00FD10DA /* LaunchScreen.storyboard in Resources */,
+				F1DD24B11C3DC90C00FD10DA /* Assets.xcassets in Resources */,
+				F1DD24AF1C3DC90C00FD10DA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +330,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F1DD249F1C3DC90C00FD10DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1DD25271C3F050500FD10DA /* NSThread_Extensions.swift in Sources */,
+				F1DD25251C3F01C900FD10DA /* L8RDirectory.swift in Sources */,
+				F1DD24AA1C3DC90C00FD10DA /* L8RScene.swift in Sources */,
+				F1DD250B1C3DD88700FD10DA /* L8RSKScrollerNode.swift in Sources */,
+				F1DD252D1C3F19BA00FD10DA /* CreateL8RSKNode.swift in Sources */,
+				F1DD250D1C3DDAE000FD10DA /* Util.swift in Sources */,
+				F1DD24AC1C3DC90C00FD10DA /* L8RViewController.swift in Sources */,
+				F1DD25231C3F019000FD10DA /* NSFileManager_Extensions.swift in Sources */,
+				F1DD25111C3EDE7F00FD10DA /* L8RItemSet.swift in Sources */,
+				F1DD25141C3EEA6700FD10DA /* L8RSKItem.swift in Sources */,
+				F1DD24A61C3DC90C00FD10DA /* AppDelegate.swift in Sources */,
+				F1DD250F1C3EDDF900FD10DA /* L8RItem.swift in Sources */,
+				F1DD25291C3F053400FD10DA /* NSType_Extensions.swift in Sources */,
+				F1DD25161C3EEB7800FD10DA /* L8RSKItemStack.swift in Sources */,
+				F1DD252B1C3F053D00FD10DA /* SpriteKit_Extensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -213,6 +367,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				01439E591C03BE58000CE85F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F1DD24AD1C3DC90C00FD10DA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1DD24AE1C3DC90C00FD10DA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F1DD24B21C3DC90C00FD10DA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1DD24B31C3DC90C00FD10DA /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -357,6 +527,31 @@
 			};
 			name = Release;
 		};
+		F1DD24B71C3DC90C00FD10DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				INFOPLIST_FILE = "L8R-sk/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.l8r.L8R-sk";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F1DD24B81C3DC90C00FD10DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "L8R-sk/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.l8r.L8R-sk";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -383,6 +578,15 @@
 			buildConfigurations = (
 				F1DD24981C3D9E2900FD10DA /* Debug */,
 				F1DD24991C3D9E2900FD10DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1DD24B61C3DC90C00FD10DA /* Build configuration list for PBXNativeTarget "L8R-sk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1DD24B71C3DC90C00FD10DA /* Debug */,
+				F1DD24B81C3DC90C00FD10DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
