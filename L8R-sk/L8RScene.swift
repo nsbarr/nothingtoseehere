@@ -5,7 +5,7 @@
 import SpriteKit
 import AVFoundation
 
-class L8RScene: SKScene, UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
+class L8RScene: SKScene, UIGestureRecognizerDelegate {
 
     //iPhone 6
     var scale: CGFloat!
@@ -13,11 +13,9 @@ class L8RScene: SKScene, UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSa
     var l8rScroller: L8RSKScrollerNode!
     var l8rItemSet: L8RItemSet!
     
-    var cameraFrameQueue = dispatch_queue_create("l8r.cameraQueue", DISPATCH_QUEUE_CONCURRENT);
-    var lastFrame:CGImageRef!
-    var lastFrameRect:CGRect!
-    
     var backgroundNode:SKNode!
+    
+    var photoCameraController:PhotoCameraController!
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -28,6 +26,7 @@ class L8RScene: SKScene, UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSa
         backgroundColor = SKColor.whiteColor()
         self.scaleMode = .AspectFill
 
+        
 //        self.scale = self.size.width / 320.0
         
 //        NSLog("SZ = \(self.size)")
@@ -37,6 +36,9 @@ class L8RScene: SKScene, UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSa
         
         self.addChild(self.l8rScroller)
         
+        self.l8rScroller!.l8rCreatorNode.takePhotoAction = { [weak self] () -> Void in
+            self?.takePhoto()
+        }
         
         var start = NSDate().timeIntervalSince1970
         let secInDay:NSTimeInterval = 86400
@@ -46,8 +48,23 @@ class L8RScene: SKScene, UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSa
 
     }
     
+    func takePhoto() {
+        if let photoController = self.photoCameraController {
+            photoController.takePhoto({ (image, metadata) -> Void in
+                NSLog("photoController.takePhoto callback received, image size: \(image?.size)")
+                if let im = image {
+                    self.l8rItemSet?.createItemWithImage(im, metadata: metadata)
+                }
+                
+            })
+        }
+    }
+    
     func loadItems(itemSet:L8RItemSet) {
         l8rItemSet = itemSet
+        l8rItemSet.itemCreatedCallback = { [weak self] (item:L8RItem, image:UIImage?) -> Void in
+            self?.l8rScroller?.addItem(item, image: image, animate: true)
+        }
         for item in itemSet.allItemsSortedByDate {
             self.l8rScroller.addItem(item)
         }
@@ -77,13 +94,10 @@ class L8RScene: SKScene, UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSa
                 self.l8rScroller.scrollToItem(todayItems.first!)
             }
         }
-        
     }
     
     override func didMoveToView(view: SKView) {
         
-        
-
         view.addSwipeGestureRecognizer(UISwipeGestureRecognizer(target: self, action: "swipeGesture:"), direction: .Left)
         view.addSwipeGestureRecognizer(UISwipeGestureRecognizer(target: self, action: "swipeGesture:"), direction: .Right)
 
@@ -95,7 +109,7 @@ class L8RScene: SKScene, UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSa
         let tapRecognizer = UITapGestureRecognizer(target: self, action: "tapGesture:")
         view.addGestureRecognizer(tapRecognizer)
 
-        
+
     }
     
     func tapGesture(recognizer:UITapGestureRecognizer) {
@@ -165,6 +179,7 @@ class L8RScene: SKScene, UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSa
             self.l8rScroller.runAction(act)
         }
     }
+    
     var lastUpdate:NSTimeInterval = 0
     var isUpdatingCameraFrame:Bool = false
     
@@ -174,155 +189,14 @@ class L8RScene: SKScene, UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSa
         
         if (time - lastUpdate) > (1.0/30.0) { //this is processed up to 30 times per second
             lastUpdate = time
-            if self.l8rScroller != nil && self.lastFrame != nil && self.lastFrameRect != nil {
-            dispatch_barrier_sync(cameraFrameQueue, { () -> Void in
-                if self.isUpdatingCameraFrame {
-                    return
-                }
-                self.isUpdatingCameraFrame = true
-                self.l8rScroller.updateCameraFrame(self.lastFrame, imageRect: self.lastFrameRect)
-                self.isUpdatingCameraFrame = false
-            })
-            }
-        }
-    }
-    
-    //MARK: Camera Stuff
-    
-    
-    //camera setup
-
-    var backCameraDevice:AVCaptureDevice?
-    var frontCameraDevice:AVCaptureDevice?
-    var stillImageOutput:AVCaptureStillImageOutput!
-    var session:AVCaptureSession!
-    var currentInput: AVCaptureDeviceInput?
-    var currentDeviceIsBack = true
-    var sessionQueue = dispatch_queue_create("com.example.camera.capture_session", DISPATCH_QUEUE_SERIAL)
-    var tempPreviewLayerView = UIImageView()
-    
-    var previewLayerImage = UIImage()
-    
-    var videoOutput:AVCaptureVideoDataOutput!
-    
-    
-    func teardownCamera() {
-        dispatch_async(sessionQueue, {
-            self.session.stopRunning()
-//            NSNotificationCenter.defaultCenter().removeObserver(self.runtimeErrorHandlingObserver)
-        })
-    }
-
-    
-    func setupCamera() {
-        AVCaptureDevice.requestAccessForMediaType(AVMediaTypeVideo, completionHandler: {
-            (granted: Bool) -> Void in
-            // If permission hasn't been granted, notify the user.
-            if !granted {
-                dispatch_async(dispatch_get_main_queue(), {
-                    UIAlertView(
-                        title: "Could not use camera!",
-                        message: "L8R needs access to the camera, please check your privacy settings.",
-                        delegate: self,
-                        cancelButtonTitle: "OK").show()
+            if self.photoCameraController != nil && self.l8rScroller?.l8rCreatorNode != nil && self.photoCameraController.hasFrameData {
+                self.photoCameraController.retrieveLastFrame({ (image, size) -> Void in
+                    self.l8rScroller.l8rCreatorNode.updateCameraFrame(image, size: size)
                 })
             }
-            else {
-                self.prepareCamera()
-            }
-        });
-    }
-    
-    func prepareCamera() {
-        let availableCameraDevices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
-        for device in availableCameraDevices as! [AVCaptureDevice] {
-            if device.position == .Back {
-                backCameraDevice = device
-            }
-            else if device.position == .Front {
-                frontCameraDevice = device
-            }
-        }
-        
-        self.session = AVCaptureSession()
-
-        
-        let possibleCameraInput: AnyObject?
-        do {
-            possibleCameraInput = try AVCaptureDeviceInput(device: backCameraDevice)
-        } catch let error as NSError {
-            NSLog("Error:\(error)")
-            possibleCameraInput = nil
-        }
-        if let backCameraInput = possibleCameraInput as? AVCaptureDeviceInput {
-            if self.session.canAddInput(backCameraInput) {
-                currentInput = backCameraInput
-                self.session.addInput(currentInput)
-            }
-        }
-        
-        videoOutput = AVCaptureVideoDataOutput()
-        videoOutput.setSampleBufferDelegate(self, queue: dispatch_queue_create("sample buffer delegate queue", DISPATCH_QUEUE_SERIAL))
-        videoOutput.alwaysDiscardsLateVideoFrames = true
-        if session.canAddOutput(self.videoOutput) {
-            session.addOutput(self.videoOutput)
-        }
-        if let videoBufferConnection = videoOutput.connectionWithMediaType(AVMediaTypeVideo) {
-            videoBufferConnection.videoOrientation = AVCaptureVideoOrientation.Portrait
-        }
-//        let connection = self.stillCameraOutput.connectionWithMediaType(AVMediaTypeVideo)
-//        connection.videoOrientation = AVCaptureVideoOrientation(rawValue: UIDevice.currentDevice().orientation.rawValue)!
-
-        //this auto-handles focus, WB, exposure, etc.
-        session.sessionPreset = AVCaptureSessionPresetPhoto
-        
-        sessionQueue = dispatch_queue_create("com.example.camera.capturessession", DISPATCH_QUEUE_SERIAL)
-        dispatch_async(sessionQueue) { () -> Void in
-            self.session.startRunning()
-        }
-    }
-    
-    func addStillImageOutput() {
-        stillImageOutput = AVCaptureStillImageOutput()
-        stillImageOutput.outputSettings = [AVVideoCodecKey: AVVideoCodecJPEG]
-        
-        if session.canAddOutput(stillImageOutput) {
-            session.addOutput(stillImageOutput)
         }
     }
     
     
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
-
-        dispatch_barrier_async(cameraFrameQueue, { () -> Void in
-            if self.isUpdatingCameraFrame {
-                return
-            }
-            if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
-                let ciImage = CIImage(CVPixelBuffer: imageBuffer)
-
-                let width = CVPixelBufferGetWidth(imageBuffer)
-                let height = CVPixelBufferGetHeight(imageBuffer)
-                
-                let nWidth = 640 //target iphone5 screen @2x
-                let nHeight = Int(640 * (height / width))
-                let xRatio = Float(nWidth.cgf / width.cgf)
-
-                let resizeFilter = CIFilter(name: "CILanczosScaleTransform", withInputParameters: ["inputImage": ciImage, "inputAspectRatio": NSNumber(float: 1), "inputScale" : NSNumber(float:xRatio)])
-                let resizedImage = resizeFilter!.outputImage
-                
-                let context = CIContext(options: nil)
-
-                let cgImage = context.createCGImage(resizedImage!, fromRect: resizedImage!.extent)
-                let cgImageRect = CGRect(x: 0, y: 0, width: nWidth, height: nHeight)
-
-                self.lastFrame = cgImage
-                self.lastFrameRect = cgImageRect
-            }
-            
-            
-            
-            })
-    }
     
 }

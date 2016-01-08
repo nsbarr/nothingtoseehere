@@ -15,6 +15,9 @@ class L8RItemSet {
     
     private var allItemsSet:Set<L8RItem> = Set<L8RItem>()
     
+    ///will be notified when an item is added to the set via createItemWithImage(). If the image is available at that point it is passed on to avoid having to load it again, since presumably the callback is to update the UI
+    var itemCreatedCallback:((item:L8RItem, image:UIImage?) -> Void)!
+    
     init() {
 
     }
@@ -92,6 +95,22 @@ class L8RItemSet {
     
     var itemsForToday:[L8RItem] {
         return itemsForDate(NSDate())
+    }
+    
+    func createItemWithImage(image:UIImage, metadata:NSDictionary?) {
+        let date = NSDate()
+        let item = L8RItem(date: date)
+        item.text = "Created on \(date.yyyyMMddKey)"
+        if let callback = self.itemCreatedCallback {
+            
+            NSThread.dispatchAsyncOnMainQueue() {
+                callback(item: item, image:  image)
+            }
+        }
+        item.setImage(image)
+//        item.text = "\(dt.yyyyMMddKey)"
+        self.addItem(item)
+
     }
 
     func addItem(item:L8RItem) {

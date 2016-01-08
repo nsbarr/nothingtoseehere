@@ -12,6 +12,17 @@ class L8RViewController: UIViewController {
     var scene:L8RScene!
     var items:L8RItemSet!
     
+    var photoCameraController:PhotoCameraController! {
+        didSet {
+            self.scene.photoCameraController = self.photoCameraController
+        }
+    }
+    
+    deinit {
+        self.photoCameraController.teardownCamera()
+        self.photoCameraController = nil
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,8 +44,6 @@ class L8RViewController: UIViewController {
         skView.presentScene(scene)
 
         scene.loadItems(items)
-
-
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -42,9 +51,32 @@ class L8RViewController: UIViewController {
         
         //        scene.testScrolling()
         
-        
-
-        scene.setupCamera()
+        NSThread.dispatchAsyncOnMainQueue() {
+            self.photoCameraController = PhotoCameraController()
+            self.photoCameraController.checkCameraAccess({ (accessGranted) -> Void in
+                // If permission hasn't been granted, notify the user.
+                if !accessGranted {
+                    NSThread.dispatchAsyncOnMainQueue() {
+                        /*
+                        TODO this is iOS9 only, so change if we don't need pre iOS9
+                        let message =  "L8R needs access to the camera, please check your privacy settings."
+                        let alert = UIAlertController(title: "Could not use camera!", message:message, preferredStyle: .Alert)
+                        alert.addAction(UIAlertAction(title: "OK.", style: .Default) { _ in })
+                        self.presentViewController(alert, animated: true) {
+                        }
+                        */
+                        UIAlertView(
+                            title: "Could not use camera!",
+                            message: "L8R needs access to the camera, please check your privacy settings.",
+                            delegate: self,
+                            cancelButtonTitle: "OK").show()
+                    }
+                }
+                else {
+                    self.photoCameraController.prepareCamera()
+                }
+            })
+        }
     }
 
     

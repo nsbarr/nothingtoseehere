@@ -7,12 +7,6 @@ import SpriteKit
 
 
 
-extension CGFloat {
-    func scaleBy(scale:CGFloat) -> CGFloat {
-        return self * scale
-    }
-}
-
 extension CGSize {
     var center:CGPoint {
         return CGPoint(x: self.width/2, y: self.height/2)
@@ -46,6 +40,11 @@ extension CGFloat {
     var i:Int {
         return Int(self)
     }
+
+    func scaleBy(scale:CGFloat) -> CGFloat {
+        return self * scale
+    }
+
 }
 
 public extension SKSpriteNode {
@@ -80,23 +79,34 @@ extension SKTexture {
         
     }
 }
-extension SKSpriteNode {
+
+
+class SKButtonNode : SKSpriteNode {
     
-    func aspectFillToSize(fillSize: CGSize) {
-        
-        if texture != nil {
-            self.size = texture!.size()
-            
-            let verticalRatio = fillSize.height / self.texture!.size().height
-            let horizontalRatio = fillSize.width /  self.texture!.size().width
-            
-            let scaleRatio = horizontalRatio > verticalRatio ? horizontalRatio : verticalRatio
-            
-            self.setScale(scaleRatio)
-        }
+    var action:((buttonNode:SKButtonNode) -> Void)!
+    
+    init(texture:SKTexture?, color:SKColor, size:CGSize, action:((buttonNode:SKButtonNode) -> Void)) {
+        self.action = action
+        super.init(texture: texture, color: color, size: size)
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var reactsToTap:Bool {
+        return true
+    }
+    
+    override func processTap(atPosition position:CGPoint, recognizer:UITapGestureRecognizer) -> Bool {
+        if let action = self.action {
+            action(buttonNode: self)
+            return true
+        }
+        return false
+    }
 }
+
 public extension SKNode {
     
     var reactsToTap:Bool {

@@ -52,13 +52,6 @@ class L8RSKScrollerNode : SKSpriteNode {
         self.l8rCreatorNode.zPosition = 2
     }
     
-    func updateCameraFrame(image:CGImage, imageRect:CGRect) {
-
-        self.l8rCreatorNode.texture = SKTexture(CGImage: image)
-
-    }
-
-    
     override var reactsToTap:Bool {
         return true
     }
@@ -142,26 +135,35 @@ class L8RSKScrollerNode : SKSpriteNode {
         }
     }
     
-    func addItem(item:L8RItem) -> L8RSKItem {
+    func addItem(item:L8RItem, image:UIImage? = nil, animate:Bool = false) -> L8RSKItem {
         let devSz = CGSize(width: self.baseWidth, height: self.height)
         let w:CGFloat = devSz.width-(20*2)
         let h = devSz.height-(20*2)
         let size = CGSize(width: w, height: h)
 
         
-        let item = L8RSKItem(item: item, color: SKColor.redColor(), size: size)
+        let item = L8RSKItem(item: item, color: SKColor.redColor(), size: size, image: image)
 
         let stack = self.stackForDate(item.date)
-        
-        item.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
-        stack.addItem(item)
-        var bw = self.dateToStackMap.count.cgf * self.baseWidth
-        if bw < (self.baseWidth * 3) {
-            bw = self.baseWidth * 3
+
+        if animate {
+            //this is when a new L8R's been created and we animate that from the creator node 
+            //to the stack
+            item.alpha = 0
+            stack.addItem(item)
+            self.moveCreatorNodeToBack()
+            item.flashFadeIn()
         }
-        self.size = CGSize(width: bw, height: self.size.height)
-        
+        else {
+            stack.addItem(item)
+    //        item.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+    //        item.position = stack.size.center
+            var bw = self.dateToStackMap.count.cgf * self.baseWidth
+            if bw < (self.baseWidth * 3) {
+                bw = self.baseWidth * 3
+            }
+            self.size = CGSize(width: bw, height: self.size.height)
+        }
         
         return item
         

@@ -29,22 +29,26 @@ class L8RSKItem : SKSpriteNode {
     }
     var textNode:SKLabelNode!
     
-    init(item: L8RItem, color:SKColor, size:CGSize) {
+    var imageNode:SKSpriteNode!
+    
+    init(item: L8RItem, color:SKColor, size:CGSize, image:UIImage? = nil) {
         self.item = item
         super.init(texture: nil, color: color, size: size)
         
         self.name = "L8RSKItemNode: date = \(self.date)"
         
-        if item.hasImage {
-            item.loadImage() { (image) -> Void in
-                if image != nil {
-                    NSThread.dispatchAsyncOnMainQueue() {
-                        self.texture = SKTexture(image: image)
-                    }
-                }
-                
-            }
+        let imgSize = CGSize(width: self.size.width-40, height: self.size.height-40)
+        imageNode = SKSpriteNode(color: SKColor.yellowColor(), size: imgSize)
+        imageNode.position = CGPointZero//self.size.center
+//        imageNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        if let im = image {
+            imageNode.texture = SKTexture(image: im)
         }
+
+        self.addChild(imageNode)
+
+        
+        
         
         itemUpdated()
     }
@@ -53,8 +57,31 @@ class L8RSKItem : SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func flashFadeIn() {
+        let whiteNode = SKSpriteNode(color: SKColor.whiteColor(), size: self.imageNode.size)
+        self.imageNode.addChild(whiteNode)
+        self.alpha = 1
+        let fadeOutWhite = SKAction.fadeAlphaTo(0, duration: 2)
+        fadeOutWhite.timingMode = .EaseIn
+        whiteNode.runAction(fadeOutWhite) {
+            NSThread.dispatchAsyncOnMainQueue() {
+                whiteNode.removeFromParent()
+            }
+        }
+    }
+    
     func itemUpdated() {
         self.textUpdated()
+        if item.hasImage && imageNode.texture == nil {
+            item.loadImage() { (image) -> Void in
+                if image != nil {
+                    NSThread.dispatchAsyncOnMainQueue() {
+                        self.imageNode.texture = SKTexture(image: image)
+                    }
+                }
+                
+            }
+        }
     }
     
     private func textUpdated() {
