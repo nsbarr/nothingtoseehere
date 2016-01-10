@@ -22,7 +22,6 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
     
     var videoOutput:AVCaptureVideoDataOutput!
     
-
     public override init() {
         
     }
@@ -55,7 +54,9 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
         })
     }
     
+    
     public var hasFrameData:Bool = false
+    
     
     public func teardownCamera() {
         
@@ -79,6 +80,7 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
             
         });
     }
+    
     
     public func prepareCamera() {
         let availableCameraDevices = AVCaptureDevice.devicesWithMediaType(AVMediaTypeVideo)
@@ -196,10 +198,11 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
             if val == kCVReturnSuccess {
                 let sourceBaseAddr = CVPixelBufferGetBaseAddress( pixelBuffer )
                 let colorspace = CGColorSpaceCreateDeviceRGB()
+                
 //                let baseAddress = CVPixelBufferGetBaseAddressOfPlane(imageBuffer, 0)
                 
                 let bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
-
+                
                 let width = CVPixelBufferGetWidth(imageBuffer);
                 let height = CVPixelBufferGetHeight(imageBuffer);
                 let provider = CGDataProviderCreateWithData( &pixelBuffer, sourceBaseAddr, bytesPerRow * height, ReleaseCVPixelBuffer) //
@@ -218,7 +221,7 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
         }
         
     }
-
+    
 }
 
 func ReleaseCVPixelBuffer(pixel:UnsafeMutablePointer<Void>, data:UnsafePointer<Void>, size:Int) -> Void {

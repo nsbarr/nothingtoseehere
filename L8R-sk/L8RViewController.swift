@@ -34,6 +34,12 @@ class L8RViewController: UIViewController {
         items.setStandardPath()
         items.load()
         
+        //loading stuff
+//        let testSet = L8RItemSet.createTestItemSet()
+//        for item in testSet.allItems {
+//            items.addItem(item)
+//        }
+        
         
         skView.showsFPS = true
         skView.showsNodeCount = true

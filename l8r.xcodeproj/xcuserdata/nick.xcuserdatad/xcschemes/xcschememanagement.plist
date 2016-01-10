@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>L8R-sk.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>l8r-dev.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>l8r.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -13,6 +23,16 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>01439E481C03BE58000CE85F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F1DD248D1C3D9E2900FD10DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F1DD24A21C3DC90C00FD10DA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
