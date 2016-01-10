@@ -110,7 +110,7 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
         
         do {
             
-            let desiredFrameRate:Double = 30
+            let desiredFrameRate:Double = 32
 
             if let formats = backCameraDevice.formats as? [AVCaptureDeviceFormat] {
                 for format:AVCaptureDeviceFormat in formats {
