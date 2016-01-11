@@ -37,8 +37,9 @@ class L8RSKScrollerNode : SKSpriteNode {
         let creatorNodeLeftMargin:CGFloat = 60
         self.l8rCreatorNode = CreateL8RSKNode(size: CGSize(width: self.baseWidth-creatorNodeLeftMargin, height: self.height-creatorNodeLeftMargin))
         l8rCreatorNodeBaseSize = l8rCreatorNode.size
-        self.l8rCreatorNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.l8rCreatorNode.position = self.size.center
+        self.l8rCreatorNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+
 
         self.addChild(self.l8rCreatorNode)
 

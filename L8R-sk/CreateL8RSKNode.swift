@@ -27,6 +27,8 @@ public class CreateL8RSKNode : SKSpriteNode {
         
         self.snapButtonNode.position = CGPoint(x: x, y: y)
         self.addChild(self.snapButtonNode)
+        
+        
     }
     
     func snapButtonTapped() {
