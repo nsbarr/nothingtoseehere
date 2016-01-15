@@ -118,6 +118,10 @@ class L8RItemSet {
             NSLog("Error, trying to add \(item) but it already exists in L8RItemSet, ignoring.")
             return
         }
+
+        NSNotificationCenter.defaultCenter().postNotificationName(L8RCreatedNotification, object: nil, userInfo: [L8RCreatedNotification_ItemKey:item])
+
+
         allItemsSet.insert(item)
         save()
     }

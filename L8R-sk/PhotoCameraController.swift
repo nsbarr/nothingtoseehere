@@ -8,6 +8,7 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
     public var lastFrame:SKTexture!
     
     var lastFrameReceivedAt:NSTimeInterval = 0
+    var lastFrameDuration:NSTimeInterval = 0
     
     var cameraFrameQueue = dispatch_queue_create("l8r.camera.frameQueue", DISPATCH_QUEUE_CONCURRENT);
     var isUpdatingCameraFrame:Bool = false
@@ -228,7 +229,7 @@ public class PhotoCameraController : NSObject, AVCaptureVideoDataOutputSampleBuf
     */
     public func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
         let time = CACurrentMediaTime()
-        let frameTimeDif = time - lastFrameReceivedAt
+        lastFrameDuration = time - lastFrameReceivedAt
         lastFrameReceivedAt = time
 //        print("Frames received every \(frameTimeDif) sec")
 
