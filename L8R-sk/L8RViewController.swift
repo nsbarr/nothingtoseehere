@@ -61,19 +61,14 @@ class L8RViewController: UIViewController {
                 // If permission hasn't been granted, notify the user.
                 if !accessGranted {
                     NSThread.dispatchAsyncOnMainQueue() {
-                        /*
-                        TODO this is iOS9 only, so change if we don't need pre iOS9
-                        let message =  "L8R needs access to the camera, please check your privacy settings."
-                        let alert = UIAlertController(title: "Could not use camera!", message:message, preferredStyle: .Alert)
-                        alert.addAction(UIAlertAction(title: "OK.", style: .Default) { _ in })
-                        self.presentViewController(alert, animated: true) {
-                        }
-                        */
-                        UIAlertView(
-                            title: "Could not use camera!",
-                            message: "L8R needs access to the camera, please check your privacy settings.",
-                            delegate: self,
-                            cancelButtonTitle: "OK").show()
+                        
+                            let message =  "L8R needs access to the camera, please check your privacy settings."
+                            let alert = UIAlertController(title: "Could not use camera!", message: message, preferredStyle: .Alert)
+                            alert.addAction(UIAlertAction(title: "OK.", style: .Default) { _ in })
+                            
+                            self.presentViewController(alert, animated: true) {
+                            }
+
                     }
                 }
                 else {
