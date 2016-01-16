@@ -68,31 +68,89 @@ public class NodeGroupL8RBox : SCNNodeGroup, AppEventListener {
             SCNTransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn))
             self.opacity = 1
             SCNTransaction.commit()
+            
+            NSThread.dispatchAsyncOnMainQueue() {
+                self.photoCameraController = PhotoCameraController()
+                self.photoCameraController.checkCameraAccess({ (accessGranted) -> Void in
+                    // If permission hasn't been granted, notify the user.
+                    if !accessGranted {
+                        NSThread.dispatchAsyncOnMainQueue() {
+                            
+                            let info = ["message" : "L8R needs access to the camera, please check your privacy settings.",
+                            "title":"Could not use camera!", "actionButton": "OK."]
+                            
+                            AppEvents.fireAction(AppEventKey.ShowAlert, eventInfo: info)
+                        }
+                    }
+                    else {
+                        self.photoCameraController.prepareCamera()
+                    }
+                })
+            }
 
         }
     }
     
+    deinit {
+        self.photoCameraController.teardownCamera()
+        self.photoCameraController = nil
+    }
+
+    
+    var l8rsWall:SCNNode!
+    var cameraWall:SCNNode!
+    var snoozeWall:SCNNode!
+    var archivesWall:SCNNode!
+    var photoCameraController:PhotoCameraController!
+
     override public func didLoad() {
         self.acceptsPanEvents = true
         self.acceptsTapEvents = true
         self.actionEnabled = true
+        self.needsFrameUpdates = true
 
 
-        
-    
-        
-//        AppEvents.fireSet(AppEventKey.WorldFloor, value: floor!)
-//        let getEvent = NXGetAttributeEvent<SCNNode>(named: AppEventKey.WorldFloor) { (value) -> Void in
-//            value?.geometry = floor?.geometry
-//            value!.categoryBitMask = 4
-//            value?.hidden = true
-//        }
-//        AppEvents.fireGet(getEvent)
-
-
+        self.l8rsWall = self["l8rs_wall"]
+        self.cameraWall = self["camera_wall"]
+        self.snoozeWall = self["archives_wall"]
+        self.archivesWall = self["snoozed_wall"]
 
     }
     
+    func updateCameraWall(image:SKTexture?) {
+        if let texture = image {
+            self.cameraWall.diffuseContents = texture
+        }
+    }
+    
+    func takePhoto() {
+        if let photoController = self.photoCameraController {
+//            photoController.takePhoto({ (image, metadata) -> Void in
+//                NSLog("photoController.takePhoto callback received, image size: \(image?.size)")
+//                if let im = image {
+//                    self.l8rItemSet?.createItemWithImage(im, metadata: metadata)
+//                }
+//                
+//            })
+        }
+    }
+
+    var lastUpdate:NSTimeInterval = 0
+    var isUpdatingCameraFrame:Bool = false
+    
+    override public func update(currentTime: NSTimeInterval) {
+        /* Called before each frame is rendered */
+        
+        if (currentTime - lastUpdate) > (1.0/30.0) { //this is processed up to 30 times per second
+            lastUpdate = currentTime
+            if self.photoCameraController != nil && self.photoCameraController.hasFrameData {
+                self.photoCameraController.retrieveLastFrame({ (image) -> Void in
+                    self.updateCameraWall(image)
+                })
+            }
+        }
+    }
+
 
     override public func didUnload() {
 

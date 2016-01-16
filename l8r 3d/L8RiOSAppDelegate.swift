@@ -9,8 +9,15 @@
 import UIKit
 import J58
 
+//TODO this will need some tweaking to make it easier to switch between OSes
+extension AppEventKey {
+    public static let ShowAlert = AppEventKey("ShowAlert")
+}
+
 @UIApplicationMain
-class L8RiOSAppDelegate: UIResponder, UIApplicationDelegate {
+class L8RiOSAppDelegate: UIResponder, UIApplicationDelegate, AppEventListener {
+    let _listenerKey:String = String.createUUIDString()!
+    var listenerKey:String { return _listenerKey }
 
     var window: UIWindow?
     weak var worldController:WorldController!
@@ -24,8 +31,7 @@ class L8RiOSAppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-        
-        
+        AppEvents.registerAction(self, forEvent: AppEventKey.ShowAlert)
         return true
     }
     
@@ -36,6 +42,31 @@ class L8RiOSAppDelegate: UIResponder, UIApplicationDelegate {
         self.scnView.worldController = self.worldController
         //        scnView.showsStatistics = true
         self.hudScene = self.mainController.hudSKScene
+    }
+    
+    
+    func appEventGetRequested<T>(event:NXGetAttributeEvent<T>) -> AnyObject? {
+        return nil
+    }
+    
+    func appEventSetRequested<T>(key: AppEventKey, value: T) {
+    }
+    
+    
+    func appEventTriggered(event: AppEvent) {
+        
+        if event.key == AppEventKey.ShowAlert {
+            NSThread.dispatchAsyncOnMainQueue() {
+                let message =  event.info["message"] as? String ?? "<no message>"
+                let title =  event.info["title"] as? String ?? "<title>"
+                let actionButton = event.info["actionButton"] as? String ?? "OK"
+                let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: actionButton, style: .Default) { _ in })
+                    self.l8rViewController?.presentViewController(alert, animated: true) {
+                }
+            }
+
+        }
     }
 
 
