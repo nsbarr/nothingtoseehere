@@ -8,12 +8,12 @@ import SceneKit
 import J58
 
 
-public class NodeGroupStart : SCNNodeGroup {
+public class NodeGroupStart : NXNodeGroup {
     
     public override func didPrepare() {
         self.cameraDidArriveAction = {
             NSThread.dispatchAsyncOnMainQueue(afterDelay: 1) {
-                AppEvents.fireAction(AppEventKey.VisitLocation, eventInfo: ["name":"logo", "animationDuration": NSTimeInterval(3)])
+                NXAppEvents.fireAction(NXAppEventKey.VisitLocation, eventInfo: ["name":"logo", "animationDuration": NSTimeInterval(3)])
             }
         }
     }

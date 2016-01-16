@@ -8,13 +8,13 @@ import SceneKit
 import J58
 
 
-public class NodeGroupLogo : SCNNodeGroup {
+public class NodeGroupLogo : NXNodeGroup {
     
     
     override public func didPrepare() {
         self.cameraDidArriveAction = {
             NSThread.dispatchAsyncOnMainQueue() {
-                AppEvents.fireAction(AppEventKey.VisitLocation, eventInfo: ["name":"l8rBox", "animationDuration": NSTimeInterval(4)])
+                NXAppEvents.fireAction(NXAppEventKey.VisitLocation, eventInfo: ["name":"l8rBox", "animationDuration": NSTimeInterval(4)])
             }
             
                     }
@@ -25,6 +25,14 @@ public class NodeGroupLogo : SCNNodeGroup {
 
     
     override public func didLoad() {
+        
+        
+//        let getEvent = NXGetAttributeEvent<SCNNode>(named: NXAppEventKey.WorldFloor) { (value) -> Void in
+//            print("FLOOR NODE: \(value)")
+//        }
+//        NXAppEvents.fireGet(getEvent)
+//        
+        
         NSThread.dispatchAsyncOnMainQueue() {
 //            if let logoIcon = self.childNodeWithName("logo_icon", recursively: true) {
 //                NSLog("playing sound on icon")

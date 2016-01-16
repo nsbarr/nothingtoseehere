@@ -10,8 +10,8 @@ import UIKit
 import J58
 
 //TODO this will need some tweaking to make it easier to switch between OSes
-extension AppEventKey {
-    public static let ShowAlert = AppEventKey("ShowAlert")
+extension NXAppEventKey {
+    public static let ShowAlert = NXAppEventKey("ShowAlert")
 }
 
 @UIApplicationMain
@@ -20,7 +20,7 @@ class L8RiOSAppDelegate: UIResponder, UIApplicationDelegate, AppEventListener {
     var listenerKey:String { return _listenerKey }
 
     var window: UIWindow?
-    weak var worldController:WorldController!
+    weak var worldController:NXWorldController!
     var mainController: MainController!
     
     var hudScene:N3xtHUDSKScene!
@@ -31,7 +31,7 @@ class L8RiOSAppDelegate: UIResponder, UIApplicationDelegate, AppEventListener {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-        AppEvents.registerAction(self, forEvent: AppEventKey.ShowAlert)
+        NXAppEvents.registerAction(self, forEvent: NXAppEventKey.ShowAlert)
         return true
     }
     
@@ -49,13 +49,13 @@ class L8RiOSAppDelegate: UIResponder, UIApplicationDelegate, AppEventListener {
         return nil
     }
     
-    func appEventSetRequested<T>(key: AppEventKey, value: T) {
+    func appEventSetRequested<T>(key: NXAppEventKey, value: T) {
     }
     
     
-    func appEventTriggered(event: AppEvent) {
+    func appEventTriggered(event: NXAppEvent) {
         
-        if event.key == AppEventKey.ShowAlert {
+        if event.key == NXAppEventKey.ShowAlert {
             NSThread.dispatchAsyncOnMainQueue() {
                 let message =  event.info["message"] as? String ?? "<no message>"
                 let title =  event.info["title"] as? String ?? "<title>"

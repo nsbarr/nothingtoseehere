@@ -9,17 +9,17 @@ import J58
 
 
 
-public extension AppEventKey {
+public extension NXAppEventKey {
     
-    public static let ViewL8R = AppEventKey("ViewL8R")
+    public static let ViewL8R = NXAppEventKey("ViewL8R")
 
-    public static let ViewSnoozed = AppEventKey("ViewSnoozed")
+    public static let ViewSnoozed = NXAppEventKey("ViewSnoozed")
     
 }
 
 
 
-public class NodeGroupL8RBox : SCNNodeGroup, AppEventListener {
+public class NodeGroupL8RBox : NXNodeGroup, AppEventListener {
     let _listenerKey:String = String.createUUIDString()!
     public var listenerKey:String { return _listenerKey }
     
@@ -27,17 +27,17 @@ public class NodeGroupL8RBox : SCNNodeGroup, AppEventListener {
         return nil
     }
     
-    public func appEventSetRequested<T>(key: AppEventKey, value: T) {
+    public func appEventSetRequested<T>(key: NXAppEventKey, value: T) {
     }
     
-    public func appEventTriggered(event:AppEvent) {
+    public func appEventTriggered(event:NXAppEvent) {
         
         switch event.key {
-        case AppEventKey.ViewL8R:
+        case NXAppEventKey.ViewL8R:
             if event.action == .Update {
             }
             break
-        case AppEventKey.ViewSnoozed:
+        case NXAppEventKey.ViewSnoozed:
             break
         default:
             break
@@ -47,20 +47,20 @@ public class NodeGroupL8RBox : SCNNodeGroup, AppEventListener {
     
     public override func didPrepare() {
         
-        AppEvents.registerAction(self, forEvent: AppEventKey.VisitLocation)
+        NXAppEvents.registerAction(self, forEvent: NXAppEventKey.VisitLocation)
 
         self.cameraWillDepartAction = {
-            AppEvents.deregisterAction(self)
+            NXAppEvents.deregisterAction(self)
         }
         
         self.cameraWillArriveAction = {
-//            AppEvents.fireAction(WorldEvent(updateFloorReflectivityTo: CGFloat(0)))
+//            NXAppEvents.fireAction(WorldEvent(updateFloorReflectivityTo: CGFloat(0)))
         }
         
         self.cameraDidArriveAction = {
             
-            AppEvents.registerAction(self, forEvent: AppEventKey.ViewL8R)
-            AppEvents.registerAction(self, forEvent: AppEventKey.ViewSnoozed)
+            NXAppEvents.registerAction(self, forEvent: NXAppEventKey.ViewL8R)
+            NXAppEvents.registerAction(self, forEvent: NXAppEventKey.ViewSnoozed)
 
             
             SCNTransaction.begin()
@@ -79,7 +79,7 @@ public class NodeGroupL8RBox : SCNNodeGroup, AppEventListener {
                             let info = ["message" : "L8R needs access to the camera, please check your privacy settings.",
                             "title":"Could not use camera!", "actionButton": "OK."]
                             
-                            AppEvents.fireAction(AppEventKey.ShowAlert, eventInfo: info)
+                            NXAppEvents.fireAction(NXAppEventKey.ShowAlert, eventInfo: info)
                         }
                     }
                     else {
@@ -124,7 +124,7 @@ public class NodeGroupL8RBox : SCNNodeGroup, AppEventListener {
     }
     
     func takePhoto() {
-        if let photoController = self.photoCameraController {
+//        if let photoController = self.photoCameraController {
 //            photoController.takePhoto({ (image, metadata) -> Void in
 //                NSLog("photoController.takePhoto callback received, image size: \(image?.size)")
 //                if let im = image {
@@ -132,7 +132,7 @@ public class NodeGroupL8RBox : SCNNodeGroup, AppEventListener {
 //                }
 //                
 //            })
-        }
+//        }
     }
 
     var lastUpdate:NSTimeInterval = 0

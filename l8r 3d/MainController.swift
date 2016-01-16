@@ -16,7 +16,7 @@ class MainController : AppEventListener {
     var topLevelDirectory: String!
     var scnView:N3xtSCNView
     var hudSKScene: N3xtHUDSKScene!
-    var worldController: WorldController!
+    var worldController: NXWorldController!
     
     
     init(view: N3xtSCNView, hudScene: N3xtHUDSKScene! = nil) {
@@ -44,8 +44,8 @@ class MainController : AppEventListener {
         
     }
     
-    func initializeWorld(showHUD: Bool = false) -> WorldController {
-        self.worldController = WorldController()
+    func initializeWorld(showHUD: Bool = false) -> NXWorldController {
+        self.worldController = NXWorldController()
         
         //create standard scnView
         self.scnView.delegate = self.worldController
@@ -75,10 +75,10 @@ class MainController : AppEventListener {
             "jitteringEnabled" : true
         ]
         
-        let nodeGroupKeyToTypeMappings:[String: SCNNodeGroupParameters] = [
-            "Start"     : SCNNodeGroupParameters(groupType: NodeGroupStart.self, daeAssetName: nil, daeAssetFileName: nil),
-            "Logo"      : SCNNodeGroupParameters(groupType: NodeGroupLogo.self, daeAssetName: "logo_plane", daeAssetFileName: "location_logo"),
-            "L8RBox": SCNNodeGroupParameters(groupType: NodeGroupL8RBox.self, daeAssetName: "l8rBox", daeAssetFileName: "location_l8rBox"),
+        let nodeGroupKeyToTypeMappings:[String: NXNodeGroupParameters] = [
+            "Start"     : NXNodeGroupParameters(groupType: NodeGroupStart.self, daeAssetName: nil, daeAssetFileName: nil),
+            "Logo"      : NXNodeGroupParameters(groupType: NodeGroupLogo.self, daeAssetName: "logo_plane", daeAssetFileName: "location_logo"),
+            "L8RBox": NXNodeGroupParameters(groupType: NodeGroupL8RBox.self, daeAssetName: "l8rBox", daeAssetFileName: "location_l8rBox"),
         ]
         let locationsSceneFilename = "locations"
         let worldSetupSceneFilename = "world"
@@ -97,10 +97,10 @@ class MainController : AppEventListener {
         return nil
     }
     
-    func appEventSetRequested<T>(key: AppEventKey, value: T) {
+    func appEventSetRequested<T>(key: NXAppEventKey, value: T) {
     }
     
-    func appEventTriggered(event:AppEvent) {
+    func appEventTriggered(event:NXAppEvent) {
     }
     
     func changeTopLevelDir(path: String) {
