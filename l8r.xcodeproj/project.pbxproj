@@ -13,6 +13,21 @@
 		01439E551C03BE58000CE85F /* l8r.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01439E531C03BE58000CE85F /* l8r.xcdatamodeld */; };
 		01439E571C03BE58000CE85F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01439E561C03BE58000CE85F /* Assets.xcassets */; };
 		01439E5A1C03BE58000CE85F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01439E581C03BE58000CE85F /* LaunchScreen.storyboard */; };
+		F13367B71C49B478005C84B7 /* L8RiOSAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13367B61C49B478005C84B7 /* L8RiOSAppDelegate.swift */; };
+		F13367B91C49B478005C84B7 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F13367B81C49B478005C84B7 /* art.scnassets */; };
+		F13367BB1C49B478005C84B7 /* L8RViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13367BA1C49B478005C84B7 /* L8RViewController.swift */; };
+		F13367BE1C49B478005C84B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F13367BC1C49B478005C84B7 /* Main.storyboard */; };
+		F13367C01C49B478005C84B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F13367BF1C49B478005C84B7 /* Assets.xcassets */; };
+		F13367C31C49B478005C84B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F13367C11C49B478005C84B7 /* LaunchScreen.storyboard */; };
+		F13367CD1C49B644005C84B7 /* J58.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F13367AB1C49B347005C84B7 /* J58.framework */; };
+		F13367D41C49B7B1005C84B7 /* J58.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F13367D31C49B7B1005C84B7 /* J58.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F13367D61C49B7B9005C84B7 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F13367D51C49B7B9005C84B7 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F13367D71C49B7C3005C84B7 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F13367D51C49B7B9005C84B7 /* Alamofire.framework */; };
+		F13367E21C49C2DE005C84B7 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13367E11C49C2DE005C84B7 /* MainController.swift */; };
+		F15AA6781C49C4DD008CB993 /* SettingsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15AA6771C49C4DD008CB993 /* SettingsKeys.swift */; };
+		F15AA67F1C49C59F008CB993 /* NodeGroupL8RBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15AA67C1C49C59F008CB993 /* NodeGroupL8RBox.swift */; };
+		F15AA6801C49C59F008CB993 /* NodeGroupLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15AA67D1C49C59F008CB993 /* NodeGroupLogo.swift */; };
+		F15AA6811C49C59F008CB993 /* NodeGroupStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15AA67E1C49C59F008CB993 /* NodeGroupStart.swift */; };
 		F1651E411C4009930068172C /* PhotoCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1651E401C4009930068172C /* PhotoCameraController.swift */; };
 		F1DD248F1C3D9E2900FD10DA /* l8r.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01439E531C03BE58000CE85F /* l8r.xcdatamodeld */; };
 		F1DD24901C3D9E2900FD10DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01439E4E1C03BE58000CE85F /* ViewController.swift */; };
@@ -41,6 +56,51 @@
 		F1DD252D1C3F19BA00FD10DA /* CreateL8RSKNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD252C1C3F19BA00FD10DA /* CreateL8RSKNode.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F13367AA1C49B347005C84B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F13367A41C49B347005C84B7 /* J58.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F124817A1AC1CD930061645B;
+			remoteInfo = J58_iOS;
+		};
+		F13367AC1C49B347005C84B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F13367A41C49B347005C84B7 /* J58.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F12481981AC1CD9E0061645B;
+			remoteInfo = J58_OSX;
+		};
+		F13367AE1C49B347005C84B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F13367A41C49B347005C84B7 /* J58.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F164AE171BD14460003D95B9;
+			remoteInfo = J58_tvOS;
+		};
+		F13367D01C49B661005C84B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F13367A41C49B347005C84B7 /* J58.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = F12481791AC1CD930061645B;
+			remoteInfo = J58_iOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F13367D21C49B69B005C84B7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F13367D41C49B7B1005C84B7 /* J58.framework in CopyFiles */,
+				F13367D61C49B7B9005C84B7 /* Alamofire.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		01439E491C03BE58000CE85F /* l8r.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = l8r.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01439E4C1C03BE58000CE85F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +110,22 @@
 		01439E561C03BE58000CE85F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01439E591C03BE58000CE85F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01439E5B1C03BE58000CE85F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F13367A41C49B347005C84B7 /* J58.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = J58.xcodeproj; path = ../blackbird/J58/J58.xcodeproj; sourceTree = "<group>"; };
+		F13367B41C49B478005C84B7 /* l8r 3d.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "l8r 3d.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F13367B61C49B478005C84B7 /* L8RiOSAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L8RiOSAppDelegate.swift; sourceTree = "<group>"; };
+		F13367B81C49B478005C84B7 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		F13367BA1C49B478005C84B7 /* L8RViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L8RViewController.swift; sourceTree = "<group>"; };
+		F13367BD1C49B478005C84B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F13367BF1C49B478005C84B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F13367C21C49B478005C84B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F13367C41C49B478005C84B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F13367D31C49B7B1005C84B7 /* J58.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = J58.framework; path = "../../Library/Developer/Xcode/DerivedData/Blackbird-dugbjmelpcfftybyhcxhqjcijdfb/Build/Products/Debug-iphonesimulator/J58.framework"; sourceTree = "<group>"; };
+		F13367D51C49B7B9005C84B7 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../Library/Developer/Xcode/DerivedData/Blackbird-dugbjmelpcfftybyhcxhqjcijdfb/Build/Products/Debug-iphonesimulator/Alamofire.framework"; sourceTree = "<group>"; };
+		F13367E11C49C2DE005C84B7 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		F15AA6771C49C4DD008CB993 /* SettingsKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsKeys.swift; sourceTree = "<group>"; };
+		F15AA67C1C49C59F008CB993 /* NodeGroupL8RBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeGroupL8RBox.swift; sourceTree = "<group>"; };
+		F15AA67D1C49C59F008CB993 /* NodeGroupLogo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeGroupLogo.swift; sourceTree = "<group>"; };
+		F15AA67E1C49C59F008CB993 /* NodeGroupStart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodeGroupStart.swift; sourceTree = "<group>"; };
 		F1651E401C4009930068172C /* PhotoCameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCameraController.swift; sourceTree = "<group>"; };
 		F1DD249A1C3D9E2900FD10DA /* l8r-dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "l8r-dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1DD24A31C3DC90C00FD10DA /* L8R-sk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "L8R-sk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +159,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F13367B11C49B478005C84B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F13367D71C49B7C3005C84B7 /* Alamofire.framework in Frameworks */,
+				F13367CD1C49B644005C84B7 /* J58.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1DD24921C3D9E2900FD10DA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -103,8 +188,12 @@
 		01439E401C03BE58000CE85F = {
 			isa = PBXGroup;
 			children = (
+				F13367D51C49B7B9005C84B7 /* Alamofire.framework */,
+				F13367D31C49B7B1005C84B7 /* J58.framework */,
+				F13367A41C49B347005C84B7 /* J58.xcodeproj */,
 				01439E4B1C03BE58000CE85F /* l8r */,
 				F1DD24A41C3DC90C00FD10DA /* L8R-sk */,
+				F13367B51C49B478005C84B7 /* l8r 3d */,
 				01439E4A1C03BE58000CE85F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,6 +204,7 @@
 				01439E491C03BE58000CE85F /* l8r.app */,
 				F1DD249A1C3D9E2900FD10DA /* l8r-dev.app */,
 				F1DD24A31C3DC90C00FD10DA /* L8R-sk.app */,
+				F13367B41C49B478005C84B7 /* l8r 3d.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,6 +221,43 @@
 				01439E531C03BE58000CE85F /* l8r.xcdatamodeld */,
 			);
 			path = l8r;
+			sourceTree = "<group>";
+		};
+		F13367A51C49B347005C84B7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F13367AB1C49B347005C84B7 /* J58.framework */,
+				F13367AD1C49B347005C84B7 /* J58.framework */,
+				F13367AF1C49B347005C84B7 /* J58.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F13367B51C49B478005C84B7 /* l8r 3d */ = {
+			isa = PBXGroup;
+			children = (
+				F15AA67B1C49C59E008CB993 /* NodeGroups */,
+				F15AA6771C49C4DD008CB993 /* SettingsKeys.swift */,
+				F13367E11C49C2DE005C84B7 /* MainController.swift */,
+				F13367B61C49B478005C84B7 /* L8RiOSAppDelegate.swift */,
+				F13367BA1C49B478005C84B7 /* L8RViewController.swift */,
+				F13367B81C49B478005C84B7 /* art.scnassets */,
+				F13367BC1C49B478005C84B7 /* Main.storyboard */,
+				F13367BF1C49B478005C84B7 /* Assets.xcassets */,
+				F13367C11C49B478005C84B7 /* LaunchScreen.storyboard */,
+				F13367C41C49B478005C84B7 /* Info.plist */,
+			);
+			path = "l8r 3d";
+			sourceTree = "<group>";
+		};
+		F15AA67B1C49C59E008CB993 /* NodeGroups */ = {
+			isa = PBXGroup;
+			children = (
+				F15AA67C1C49C59F008CB993 /* NodeGroupL8RBox.swift */,
+				F15AA67D1C49C59F008CB993 /* NodeGroupLogo.swift */,
+				F15AA67E1C49C59F008CB993 /* NodeGroupStart.swift */,
+			);
+			path = NodeGroups;
 			sourceTree = "<group>";
 		};
 		F1DD24A41C3DC90C00FD10DA /* L8R-sk */ = {
@@ -205,6 +332,25 @@
 			productReference = 01439E491C03BE58000CE85F /* l8r.app */;
 			productType = "com.apple.product-type.application";
 		};
+		F13367B31C49B478005C84B7 /* l8r 3d */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F13367C51C49B478005C84B7 /* Build configuration list for PBXNativeTarget "l8r 3d" */;
+			buildPhases = (
+				F13367B01C49B478005C84B7 /* Sources */,
+				F13367B11C49B478005C84B7 /* Frameworks */,
+				F13367B21C49B478005C84B7 /* Resources */,
+				F13367D21C49B69B005C84B7 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F13367D11C49B661005C84B7 /* PBXTargetDependency */,
+			);
+			name = "l8r 3d";
+			productName = "l8r 3d";
+			productReference = F13367B41C49B478005C84B7 /* l8r 3d.app */;
+			productType = "com.apple.product-type.application";
+		};
 		F1DD248D1C3D9E2900FD10DA /* l8r-dev */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1DD24971C3D9E2900FD10DA /* Build configuration list for PBXNativeTarget "l8r-dev" */;
@@ -253,6 +399,9 @@
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 3RA98GNA2A;
 					};
+					F13367B31C49B478005C84B7 = {
+						CreatedOnToolsVersion = 7.2;
+					};
 					F1DD24A21C3DC90C00FD10DA = {
 						CreatedOnToolsVersion = 7.2;
 					};
@@ -269,14 +418,45 @@
 			mainGroup = 01439E401C03BE58000CE85F;
 			productRefGroup = 01439E4A1C03BE58000CE85F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F13367A51C49B347005C84B7 /* Products */;
+					ProjectRef = F13367A41C49B347005C84B7 /* J58.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				01439E481C03BE58000CE85F /* l8r */,
 				F1DD248D1C3D9E2900FD10DA /* l8r-dev */,
 				F1DD24A21C3DC90C00FD10DA /* L8R-sk */,
+				F13367B31C49B478005C84B7 /* l8r 3d */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F13367AB1C49B347005C84B7 /* J58.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = J58.framework;
+			remoteRef = F13367AA1C49B347005C84B7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F13367AD1C49B347005C84B7 /* J58.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = J58.framework;
+			remoteRef = F13367AC1C49B347005C84B7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F13367AF1C49B347005C84B7 /* J58.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = J58.framework;
+			remoteRef = F13367AE1C49B347005C84B7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		01439E471C03BE58000CE85F /* Resources */ = {
@@ -286,6 +466,17 @@
 				01439E5A1C03BE58000CE85F /* LaunchScreen.storyboard in Resources */,
 				01439E571C03BE58000CE85F /* Assets.xcassets in Resources */,
 				01439E521C03BE58000CE85F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F13367B21C49B478005C84B7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F13367B91C49B478005C84B7 /* art.scnassets in Resources */,
+				F13367C31C49B478005C84B7 /* LaunchScreen.storyboard in Resources */,
+				F13367C01C49B478005C84B7 /* Assets.xcassets in Resources */,
+				F13367BE1C49B478005C84B7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +511,20 @@
 				01439E551C03BE58000CE85F /* l8r.xcdatamodeld in Sources */,
 				01439E4F1C03BE58000CE85F /* ViewController.swift in Sources */,
 				01439E4D1C03BE58000CE85F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F13367B01C49B478005C84B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F15AA6801C49C59F008CB993 /* NodeGroupLogo.swift in Sources */,
+				F13367BB1C49B478005C84B7 /* L8RViewController.swift in Sources */,
+				F15AA67F1C49C59F008CB993 /* NodeGroupL8RBox.swift in Sources */,
+				F13367E21C49C2DE005C84B7 /* MainController.swift in Sources */,
+				F15AA6781C49C4DD008CB993 /* SettingsKeys.swift in Sources */,
+				F13367B71C49B478005C84B7 /* L8RiOSAppDelegate.swift in Sources */,
+				F15AA6811C49C59F008CB993 /* NodeGroupStart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,6 +563,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		F13367D11C49B661005C84B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = J58_iOS;
+			targetProxy = F13367D01C49B661005C84B7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		01439E501C03BE58000CE85F /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -371,6 +584,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				01439E591C03BE58000CE85F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		F13367BC1C49B478005C84B7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F13367BD1C49B478005C84B7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F13367C11C49B478005C84B7 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F13367C21C49B478005C84B7 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -505,6 +734,35 @@
 			};
 			name = Release;
 		};
+		F13367C61C49B478005C84B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/../J58\"";
+				INFOPLIST_FILE = "l8r 3d/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.poemsio.l8r-3d";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F13367C71C49B478005C84B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "\"$(PROJECT_DIR)/../J58\"";
+				INFOPLIST_FILE = "l8r 3d/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.poemsio.l8r-3d";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		F1DD24981C3D9E2900FD10DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -575,6 +833,15 @@
 			buildConfigurations = (
 				01439E5F1C03BE58000CE85F /* Debug */,
 				01439E601C03BE58000CE85F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F13367C51C49B478005C84B7 /* Build configuration list for PBXNativeTarget "l8r 3d" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F13367C61C49B478005C84B7 /* Debug */,
+				F13367C71C49B478005C84B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

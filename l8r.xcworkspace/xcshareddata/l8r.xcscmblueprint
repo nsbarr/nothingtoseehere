@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A56E5D244F856AD8D1096267ABF32B1201C2606D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "7EE1FBB71FE761661DCD9F81541A07FCE47D3DE8" : 0,
+    "A56E5D244F856AD8D1096267ABF32B1201C2606D" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C1E723E7-6480-4C24-BA2A-F47A40ADC610",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "7EE1FBB71FE761661DCD9F81541A07FCE47D3DE8" : "blackbird\/",
+    "A56E5D244F856AD8D1096267ABF32B1201C2606D" : "nothingtoseehere\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "l8r",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "l8r.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:\/webelectric\/blackbird.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7EE1FBB71FE761661DCD9F81541A07FCE47D3DE8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/nsbarr\/nothingtoseehere.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A56E5D244F856AD8D1096267ABF32B1201C2606D"
+    }
+  ]
+}
