@@ -292,6 +292,7 @@
 		F13367B51C49B478005C84B7 /* l8r 3d */ = {
 			isa = PBXGroup;
 			children = (
+				F13529B51C4ADD6C00A2108E /* Resources */,
 				F15AA67B1C49C59E008CB993 /* NodeGroups */,
 				F15AA6771C49C4DD008CB993 /* SettingsKeys.swift */,
 				F13367E11C49C2DE005C84B7 /* MainController.swift */,
@@ -318,6 +319,13 @@
 				F13529B01C4ACC1000A2108E /* Alamofire.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F13529B51C4ADD6C00A2108E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		F15AA67B1C49C59E008CB993 /* NodeGroups */ = {

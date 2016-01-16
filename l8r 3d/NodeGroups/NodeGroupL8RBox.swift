@@ -79,12 +79,6 @@ public class NodeGroupL8RBox : SCNNodeGroup, AppEventListener {
 
 
         
-        let l8rscene =  SCNScene(named: "art.scnassets/l8r.scn")
-            
-        
-        if let dateNavRoot = l8rscene!.rootNode.childNodeWithName("walls", recursively: true) {
-            self.addChildNode(dateNavRoot)
-        }
     
         
 //        AppEvents.fireSet(AppEventKey.WorldFloor, value: floor!)

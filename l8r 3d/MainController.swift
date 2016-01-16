@@ -77,8 +77,8 @@ class MainController : AppEventListener {
         
         let nodeGroupKeyToTypeMappings:[String: SCNNodeGroupParameters] = [
             "Start"     : SCNNodeGroupParameters(groupType: NodeGroupStart.self, daeAssetName: nil, daeAssetFileName: nil),
-            "Logo"      : SCNNodeGroupParameters(groupType: NodeGroupLogo.self, daeAssetName: "logo_icon", daeAssetFileName: "location_logo"),
-            "L8RBox": SCNNodeGroupParameters(groupType: NodeGroupL8RBox.self, daeAssetName: nil, daeAssetFileName: nil),
+            "Logo"      : SCNNodeGroupParameters(groupType: NodeGroupLogo.self, daeAssetName: "logo_plane", daeAssetFileName: "location_logo"),
+            "L8RBox": SCNNodeGroupParameters(groupType: NodeGroupL8RBox.self, daeAssetName: "l8rBox", daeAssetFileName: "location_l8rBox"),
         ]
         let locationsSceneFilename = "locations"
         let worldSetupSceneFilename = "world"
