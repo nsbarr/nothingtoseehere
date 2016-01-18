@@ -7,6 +7,9 @@ import SpriteKit
 import SceneKit
 import J58
 
+public enum L8RWallFocus {
+    case Items, Snoozed, Archived, Viewfinder
+}
 
 public extension NXAppEventKey {
     
@@ -21,6 +24,10 @@ public extension NXAppEventKey {
 public class L8RWallFocusController : AppEventListener {
     let _listenerKey:String = String.createUUIDString()!
     public var listenerKey:String { return _listenerKey }
+    
+    private (set) public var focusedOn:L8RWallFocus = .Items
+    private (set) public var isChangingFocus:Bool = false
+    
     
     var l8rsWallCamera:SCNNode!
     var viewfinderWallCamera:SCNNode!
@@ -58,29 +65,61 @@ public class L8RWallFocusController : AppEventListener {
     }
     
     public func appEventTriggered(event:NXAppEvent) {
-        var tempCameraClone:SCNNode!
+        if isChangingFocus {
+            return
+        }
+        isChangingFocus = true
+        var newFocus:L8RWallFocus! = nil
+
+        defer {
+            //called when method returns 
+            if newFocus == nil {
+                //if newFocus = nil it means that the focus action was rejected b/c we were
+                //already focusing on that wall so we need to change this variable (otherwise
+                //it would be changed at the end of the animation)
+                isChangingFocus = false
+            }
+        }
         
+        var tempCameraClone:SCNNode!
         switch event.key {
         case NXAppEventKey.L8RItems:
             if event.action == .View {
+                if self.focusedOn == .Items {
+                    return
+                }
+                newFocus = .Items
                 tempCameraClone = self.l8rsWallCamera.generateCameraStructureNode().holderNode
                 print("Received event: focus on l8rs")
             }
             break
         case NXAppEventKey.L8RSnoozed:
             if event.action == .View {
+                if self.focusedOn == .Snoozed {
+                    return
+                }
+                newFocus = .Snoozed
                 tempCameraClone = self.snoozedWallCamera.generateCameraStructureNode().holderNode
                 print("Received event: focus on snoozed")
             }
             break
         case NXAppEventKey.L8RArchived:
             if event.action == .View {
+                if self.focusedOn == .Archived {
+                    return
+                }
+                newFocus = .Archived
                 print("Received event: focus on archived")
                 tempCameraClone = self.archivedWallCamera.generateCameraStructureNode().holderNode
             }
             break
         case NXAppEventKey.L8RViewFinder:
             if event.action == .View {
+                if self.focusedOn == .Viewfinder {
+                    return
+                }
+                newFocus = .Viewfinder
+
                 print("Received event: focus on viewfinder")
                 tempCameraClone = self.viewfinderWallCamera.generateCameraStructureNode().holderNode
             }
@@ -89,8 +128,10 @@ public class L8RWallFocusController : AppEventListener {
             break
         }
         self.camerasNode.addChildNode(tempCameraClone)
+
         let completionBlock = ClosureHolder() {
-            
+            self.focusedOn = newFocus
+            self.isChangingFocus = false
             tempCameraClone.removeFromParentNode()
         }
         
