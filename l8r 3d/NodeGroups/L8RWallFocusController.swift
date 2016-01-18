@@ -79,6 +79,12 @@ public class L8RWallFocusController : AppEventListener {
                 tempCameraClone = self.archivedWallCamera.generateCameraStructureNode().holderNode
             }
             break
+        case NXAppEventKey.L8RViewFinder:
+            if event.action == .View {
+                print("Received event: focus on viewfinder")
+                tempCameraClone = self.viewfinderWallCamera.generateCameraStructureNode().holderNode
+            }
+            break
         default:
             break
         }
