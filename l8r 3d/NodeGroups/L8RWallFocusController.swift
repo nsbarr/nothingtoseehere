@@ -13,6 +13,7 @@ public extension NXAppEventKey {
     public static let L8RItems = NXAppEventKey("L8RItems")
     public static let L8RSnoozed = NXAppEventKey("L8RSnoozed")
     public static let L8RArchived = NXAppEventKey("L8RArchived")
+    public static let L8RViewFinder = NXAppEventKey("L8RViewFinder")
     
 }
 
@@ -41,6 +42,7 @@ public class L8RWallFocusController : AppEventListener {
         NXAppEvents.registerAction(self, forEvent: NXAppEventKey.L8RItems)
         NXAppEvents.registerAction(self, forEvent: NXAppEventKey.L8RSnoozed)
         NXAppEvents.registerAction(self, forEvent: NXAppEventKey.L8RArchived)
+        NXAppEvents.registerAction(self, forEvent: NXAppEventKey.L8RViewFinder)
     }
     
     deinit {

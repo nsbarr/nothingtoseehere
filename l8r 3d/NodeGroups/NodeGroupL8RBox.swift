@@ -136,7 +136,7 @@ public class NodeGroupL8RBox : NXNodeGroup, AppEventListener {
         self.l8rsWall = ContainerWallNode(originalWallNode: self["l8rs_wall"]!, eventKey: NXAppEventKey.L8RItems, action: .View)
         self.snoozedWall = ContainerWallNode(originalWallNode: self["snoozed_wall"]!, eventKey: NXAppEventKey.L8RSnoozed, action: .View)
         self.archivedWall = ContainerWallNode(originalWallNode: self["archived_wall"]!, eventKey: NXAppEventKey.L8RArchived, action: .View)
-        self.viewfinderWall = self["viewfinder_wall"]!
+        self.viewfinderWall = ContainerWallNode(originalWallNode: self["viewfinder_wall"]!, eventKey: NXAppEventKey.L8RViewFinder, action: .View)
 
     }
     
