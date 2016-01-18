@@ -49,6 +49,7 @@ class MainController : AppEventListener {
         
         //create standard scnView
         self.scnView.delegate = self.worldController
+        self.scnView.enableTapDetection()
         self.scnView.play(self)
         self.hudSKScene = N3xtHUDSKScene(size: self.scnView.frame.size)
         self.scnView.overlaySKScene = self.hudSKScene

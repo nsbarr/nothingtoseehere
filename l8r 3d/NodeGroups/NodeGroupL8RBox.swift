@@ -8,20 +8,62 @@ import SceneKit
 import J58
 
 
-
-public extension NXAppEventKey {
+class ContainerWallNode: SCNNode, NXNodeEventHandler {
+    var actionEnabled:Bool = true
     
-    public static let ViewL8R = NXAppEventKey("ViewL8R")
-
-    public static let ViewSnoozed = NXAppEventKey("ViewSnoozed")
+    var acceptsPanEvents:Bool  = false
+    var acceptsSwipeEvents:Bool  = false
+    var acceptsTapEvents:Bool  = true
+    var acceptsDoubleTapEvents:Bool  = false
     
+    var eventKey:NXAppEventKey
+    var eventAction:NXAppEventAction
+
+    init(originalWallNode:SCNNode, eventKey:NXAppEventKey, action:NXAppEventAction) {
+        self.eventKey = eventKey
+        self.eventAction = action
+        super.init()
+        self.takeOverForNode(originalWallNode)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func node(aNode:SCNNode, didReceiveTapEventAt localCoordinates:SCNVector3, eventPoint:CGPoint) -> Bool {
+        NSLog("tapped: \(self.name!)")
+        
+        NXAppEvents.fireAction(self.eventKey, action: self.eventAction)
+        
+        return true
+    }
+    
+
+    func node(aNode:SCNNode, didReceivePanEventAt localCoordinates:SCNVector3, eventPoint:CGPoint, withDelta delta:CGPoint) -> Bool {
+        return false
+    }
+    func node(aNode:SCNNode, didReceiveSwipeEventAt localCoordinates:SCNVector3, eventPoint point:CGPoint, withDelta delta:CGPoint) -> Bool {
+        return false
+    }
+    func node(aNode:SCNNode, didReceiveDoubleTapEventAt localCoordinates:SCNVector3, eventPoint:CGPoint) -> Bool {
+        return false
+    }
+
 }
-
 
 
 public class NodeGroupL8RBox : NXNodeGroup, AppEventListener {
     let _listenerKey:String = String.createUUIDString()!
     public var listenerKey:String { return _listenerKey }
+    
+    var wallFocusController:L8RWallFocusController!
+    
+    var photoCameraController:PhotoCameraController!
+    
+    var l8rsWall:ContainerWallNode!
+    var snoozedWall:ContainerWallNode!
+    var archivedWall:ContainerWallNode!
+    var viewfinderWall:SCNNode!
     
     public func appEventGetRequested<T>(event:NXGetAttributeEvent<T>) -> AnyObject? {
         return nil
@@ -31,17 +73,6 @@ public class NodeGroupL8RBox : NXNodeGroup, AppEventListener {
     }
     
     public func appEventTriggered(event:NXAppEvent) {
-        
-        switch event.key {
-        case NXAppEventKey.ViewL8R:
-            if event.action == .Update {
-            }
-            break
-        case NXAppEventKey.ViewSnoozed:
-            break
-        default:
-            break
-        }
         
     }
     
@@ -58,10 +89,6 @@ public class NodeGroupL8RBox : NXNodeGroup, AppEventListener {
         }
         
         self.cameraDidArriveAction = {
-            
-            NXAppEvents.registerAction(self, forEvent: NXAppEventKey.ViewL8R)
-            NXAppEvents.registerAction(self, forEvent: NXAppEventKey.ViewSnoozed)
-
             
             SCNTransaction.begin()
             SCNTransaction.setAnimationDuration(0.5)
@@ -97,29 +124,25 @@ public class NodeGroupL8RBox : NXNodeGroup, AppEventListener {
     }
 
     
-    var l8rsWall:SCNNode!
-    var cameraWall:SCNNode!
-    var snoozeWall:SCNNode!
-    var archivesWall:SCNNode!
-    var photoCameraController:PhotoCameraController!
 
     override public func didLoad() {
         self.acceptsPanEvents = true
-        self.acceptsTapEvents = true
         self.actionEnabled = true
         self.needsFrameUpdates = true
 
+        let camerasNode = self["cameras"]
+        self.wallFocusController = L8RWallFocusController(camerasNode: camerasNode!)
 
-        self.l8rsWall = self["l8rs_wall"]
-        self.cameraWall = self["camera_wall"]
-        self.snoozeWall = self["archives_wall"]
-        self.archivesWall = self["snoozed_wall"]
+        self.l8rsWall = ContainerWallNode(originalWallNode: self["l8rs_wall"]!, eventKey: NXAppEventKey.L8RItems, action: .View)
+        self.snoozedWall = ContainerWallNode(originalWallNode: self["snoozed_wall"]!, eventKey: NXAppEventKey.L8RSnoozed, action: .View)
+        self.archivedWall = ContainerWallNode(originalWallNode: self["archived_wall"]!, eventKey: NXAppEventKey.L8RArchived, action: .View)
+        self.viewfinderWall = self["viewfinder_wall"]!
 
     }
     
     func updateCameraWall(image:SKTexture?) {
         if let texture = image {
-            self.cameraWall.diffuseContents = texture
+            self.viewfinderWall.diffuseContents = texture
         }
     }
     
@@ -164,10 +187,7 @@ public class NodeGroupL8RBox : NXNodeGroup, AppEventListener {
         }
         return false
     }
-    override public func node(aNode:SCNNode, didReceiveTapEventAt localCoordinates:SCNVector3, eventPoint:CGPoint) -> Bool {
-        NSLog("tap \(localCoordinates) \(eventPoint) ")
-        return false
-    }
+  
 
 
 }

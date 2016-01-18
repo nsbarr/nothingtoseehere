@@ -13,6 +13,7 @@
 		01439E551C03BE58000CE85F /* l8r.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01439E531C03BE58000CE85F /* l8r.xcdatamodeld */; };
 		01439E571C03BE58000CE85F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01439E561C03BE58000CE85F /* Assets.xcassets */; };
 		01439E5A1C03BE58000CE85F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01439E581C03BE58000CE85F /* LaunchScreen.storyboard */; };
+		F104630D1C4D509E00AA75C7 /* L8RWallFocusController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F104630C1C4D509E00AA75C7 /* L8RWallFocusController.swift */; };
 		F13367B71C49B478005C84B7 /* L8RiOSAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13367B61C49B478005C84B7 /* L8RiOSAppDelegate.swift */; };
 		F13367B91C49B478005C84B7 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F13367B81C49B478005C84B7 /* art.scnassets */; };
 		F13367BB1C49B478005C84B7 /* L8RViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13367BA1C49B478005C84B7 /* L8RViewController.swift */; };
@@ -166,6 +167,7 @@
 		01439E561C03BE58000CE85F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01439E591C03BE58000CE85F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01439E5B1C03BE58000CE85F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F104630C1C4D509E00AA75C7 /* L8RWallFocusController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L8RWallFocusController.swift; sourceTree = "<group>"; };
 		F13367A41C49B347005C84B7 /* J58.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = J58.xcodeproj; path = ../blackbird/J58/J58.xcodeproj; sourceTree = "<group>"; };
 		F13367B41C49B478005C84B7 /* l8r 3d.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "l8r 3d.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F13367B61C49B478005C84B7 /* L8RiOSAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L8RiOSAppDelegate.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 				F15AA67C1C49C59F008CB993 /* NodeGroupL8RBox.swift */,
 				F15AA67D1C49C59F008CB993 /* NodeGroupLogo.swift */,
 				F15AA67E1C49C59F008CB993 /* NodeGroupStart.swift */,
+				F104630C1C4D509E00AA75C7 /* L8RWallFocusController.swift */,
 			);
 			path = NodeGroups;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F15AA6801C49C59F008CB993 /* NodeGroupLogo.swift in Sources */,
+				F104630D1C4D509E00AA75C7 /* L8RWallFocusController.swift in Sources */,
 				F13367BB1C49B478005C84B7 /* L8RViewController.swift in Sources */,
 				F15AA67F1C49C59F008CB993 /* NodeGroupL8RBox.swift in Sources */,
 				F13367E21C49C2DE005C84B7 /* MainController.swift in Sources */,
