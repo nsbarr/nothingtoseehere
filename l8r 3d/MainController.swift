@@ -77,9 +77,9 @@ class MainController : AppEventListener {
         ]
         
         let nodeGroupKeyToTypeMappings:[String: NXNodeGroupParameters] = [
-            "Start"     : NXNodeGroupParameters(groupType: NodeGroupStart.self, daeAssetName: nil, daeAssetFileName: nil),
-            "Logo"      : NXNodeGroupParameters(groupType: NodeGroupLogo.self, daeAssetName: "logo_plane", daeAssetFileName: "location_logo"),
-            "L8RBox": NXNodeGroupParameters(groupType: NodeGroupL8RBox.self, daeAssetName: "l8rBox", daeAssetFileName: "location_l8rBox"),
+            "Start"     : NXNodeGroupParameters(groupType: NodeGroupStart.self, nodeName: nil, modelFileName: nil),
+            "Logo"      : NXNodeGroupParameters(groupType: NodeGroupLogo.self, nodeName: "logo_plane", modelFileName: "location_logo"),
+            "L8RBox": NXNodeGroupParameters(groupType: NodeGroupL8RBox.self, nodeName: "l8rBox", modelFileName: "location_l8rBox"),
         ]
         let locationsSceneFilename = "locations"
         let worldSetupSceneFilename = "world"
